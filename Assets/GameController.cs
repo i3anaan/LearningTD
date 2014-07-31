@@ -12,6 +12,7 @@ public class GameController : MonoBehaviour
 		private int ticks;
 		public int spawnCount;
 		public Board board;
+		public int creepStupidity;
 
 		// Use this for initialization
 		void FixedUpdate ()
@@ -24,6 +25,7 @@ public class GameController : MonoBehaviour
 								newCreep.setDestination (new Vector3 (0f, 0f, 0f));
 								newCreep.transform.parent = this.transform;
 								newCreep.setBoard (board);
+								newCreep.stupidity = creepStupidity;
 						}
 				}
 				if (ticks % ((int)(increaseWaveTimer / Time.fixedDeltaTime)) == 0) {

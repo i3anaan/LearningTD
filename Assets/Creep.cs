@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class Creep : MonoBehaviour
 {
@@ -7,6 +8,7 @@ public class Creep : MonoBehaviour
 		public int health;
 		public float speed;
 		public Vector3 destination;	
+		public int stupidity;
 		private Board board;
 
 
@@ -19,7 +21,7 @@ public class Creep : MonoBehaviour
 				if (this.transform.position == destination) {
 						//print ("Board = " + board);
 						//print ("AtField: " + (int)this.transform.position.x + ", " + (int)this.transform.position.y);
-						Field nextField = getCurrentField ().nextField;
+						Field nextField = decideBestField ();
 						if (nextField != null) {
 								destination = nextField.transform.position;
 						} else {
@@ -52,11 +54,32 @@ public class Creep : MonoBehaviour
 				Destroy (this.gameObject);
 				getCurrentField ().deaths++;
 				board.updateRouting ();
-
 		}
 
 		public void setBoard (Board board)
 		{
 				this.board = board;
+		}
+
+		public Field decideBestField ()
+		{
+				if (getCurrentField () == board.endField) {
+						return null;
+				}
+				//return getCurrentField ().nextField;
+				int minCost = int.MaxValue;		
+				foreach (Field f in getCurrentField().getNeighbours()) {
+						if (f.costToReach < minCost) {
+								minCost = f.costToReach;
+						}
+				}
+		
+				List<Field> viable = new List<Field> ();
+				foreach (Field f in getCurrentField().getNeighbours()) {
+						if (f.costToReach <= minCost + stupidity) {
+								viable.Add (f);
+						}
+				}
+				return viable [(int)(Random.value * viable.Count)];
 		}
 }

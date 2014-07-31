@@ -16,7 +16,7 @@ public class Field : MonoBehaviour
 		public TextMesh debug;
 
 		public int costToReach = int.MaxValue;
-		public int deaths = 0;
+		public int deaths = 1;
 
 
 		void FixedUpdate ()
@@ -27,7 +27,8 @@ public class Field : MonoBehaviour
 								fire ();
 						}
 				}
-				debug.text = getRoutingScore () + "";
+				//debug.text = getRoutingScore () + "";
+				debug.text = "";
 		}
 
 		void OnMouseDrag ()
@@ -36,6 +37,8 @@ public class Field : MonoBehaviour
 						print ("Transformed into tower");
 						tower = true;
 						this.renderer.material = towerMaterial;
+						//this.deaths++;
+						//board.updateRouting ();
 				}
 		}
 
