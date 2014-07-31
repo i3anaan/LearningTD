@@ -227,6 +227,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2fa5e0615c0fa042a3957cbc048ee13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  towerSelected: {fileID: 11400000, guid: 0d028b49566a3c345b45c821de5bc2dd, type: 2}
   increaseWaveTimer: 5
   spawnTime: 1
   creep: {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
