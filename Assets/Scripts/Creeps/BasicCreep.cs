@@ -2,10 +2,11 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class Creep : MonoBehaviour
+public class BasicCreep : MonoBehaviour
 {
 
 		public int health;
+		public int incomingDamage;
 		public float speed;
 		public Vector3 destination;	
 		public int stupidity;
@@ -19,8 +20,6 @@ public class Creep : MonoBehaviour
 				this.transform.rotation = Quaternion.Euler (new Vector3 (0f, 0f, -zAngle));
 				this.transform.position = Vector3.MoveTowards (this.transform.position, destination, step);
 				if (this.transform.position == destination) {
-						//print ("Board = " + board);
-						//print ("AtField: " + (int)this.transform.position.x + ", " + (int)this.transform.position.y);
 						Field nextField = decideBestField ();
 						if (nextField != null) {
 								destination = nextField.transform.position;
@@ -31,12 +30,12 @@ public class Creep : MonoBehaviour
 				}
 		}
 
-		private Field getCurrentField ()
+		private virtual Field getCurrentField ()
 		{
 				return board.getField ((int)Mathf.Round (this.transform.position.x), (int)Mathf.Round (this.transform.position.y));
 		}
 
-		public void hit (int damage)
+		public virtual void hit (int damage)
 		{
 				health = health - damage;
 				if (health <= 0) {
@@ -44,24 +43,24 @@ public class Creep : MonoBehaviour
 				}
 		}
 
-		public void setDestination (Vector3 dest)
+		public virtual void setDestination (Vector3 dest)
 		{
 				this.destination = dest;
 		}
 
-		public void die ()
+		public virtual void die ()
 		{
 				Destroy (this.gameObject);
 				getCurrentField ().deaths++;
 				board.updateRouting ();
 		}
 
-		public void setBoard (Board board)
+		public virtual void setBoard (Board board)
 		{
 				this.board = board;
 		}
 
-		public Field decideBestField ()
+		public virtual Field decideBestField ()
 		{
 				if (getCurrentField () == board.endField) {
 						return null;
