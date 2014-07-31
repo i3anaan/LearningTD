@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map version="1.0" orientation="orthogonal" width="10" height="10" tilewidth="128" tileheight="128">
+ <tileset firstgid="1" name="Dirt" tilewidth="128" tileheight="128">
+  <image source="DirtTestTile.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="2" name="Grey" tilewidth="128" tileheight="128">
+  <image source="GreyTile.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="3" name="Green" tilewidth="128" tileheight="128">
+  <image source="GreenTile.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="4" name="DirtGrey" tilewidth="128" tileheight="128">
+  <image source="DirtGrayTransition.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="5" name="DirtGreen" tilewidth="128" tileheight="128">
+  <image source="DirtGreenTransition.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="6" name="GreyGreen" tilewidth="128" tileheight="128">
+  <image source="GrayGreenTransition.png" width="128" height="128"/>
+ </tileset>
+ <tileset firstgid="7" name="GreyGreenDirt" tilewidth="128" tileheight="128">
+  <image source="DirtGreenGrayTransition.png" width="128" height="128"/>
+ </tileset>
+ <layer name="Tilelaag 1" width="10" height="10">
+  <data encoding="base64" compression="zlib">
+   eJxtkNEKQDEIQqtV9///+G5gINKDMNzR1o6Z9VWI1GvyEucDNbxcvBC2rlz6gnpL2Ka+Xrjpe/5HWYeKeiYbxKfkZpYvrON+dkqaoz28G3P6rqK/e/4PIz8BZg==
+  </data>
+ </layer>
+</map>
