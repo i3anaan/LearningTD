@@ -128,7 +128,7 @@ TextMesh:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100002}
-  m_Text: 0
+  m_Text: 
   m_OffsetZ: 0
   m_CharacterSize: .0500000007
   m_LineSpacing: 1
@@ -153,10 +153,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d040f808da668a4986d49e4a8bb60d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  showLocalCost: 1
   tower: {fileID: 0}
   nextField: {fileID: 0}
   board: {fileID: 0}
   debug: {fileID: 10200000}
+  routable: 1
   costToReach: 2147483647
   cost: 1
 --- !u!1001 &100100000

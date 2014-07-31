@@ -4,7 +4,6 @@ using System.Collections.Generic;
 
 public class Board : MonoBehaviour
 {
-
 	public Field fieldToPlace;
 	public Field[,] board;
 
@@ -17,9 +16,13 @@ public class Board : MonoBehaviour
 		board = new Field[10, 10];
 		for (int x=0; x<10; x++) {
 			for (int y=0; y<10; y++) {
+
 				board [x, y] = Instantiate (fieldToPlace, new Vector3 (x, y, 0.1f), Quaternion.identity) as Field;
 				board [x, y].transform.parent = this.transform;
 				board [x, y].board = this;
+				if (x <= 4 && y == 2) {
+					board [x, y].routable = false;
+				}
 			}
 		}
 		startField = board [0, 0];
@@ -44,7 +47,7 @@ public class Board : MonoBehaviour
 		List<Field> finalized = new List<Field> ();
 		List<Field> frontier = new List<Field> ();
 		finalized.Add (endField);
-		frontier.AddRange (endField.getNeighbours ());
+		frontier.AddRange (endField.getRoutableNeighbours ());
 		foreach (Field f in frontier) {
 			f.nextField = endField;
 			f.costToReach = endField.getRoutingScore ();
@@ -55,7 +58,7 @@ public class Board : MonoBehaviour
 			//Finalize current best move
 			Field nextShortest = getAndRemoveShortest (frontier);
 			finalized.Add (nextShortest);
-			List<Field> neighbours = nextShortest.getNeighbours ();
+			List<Field> neighbours = nextShortest.getRoutableNeighbours ();
 
 			//Update frontier with new routing information.
 			foreach (Field n in neighbours) {

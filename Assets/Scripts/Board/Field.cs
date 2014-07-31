@@ -4,10 +4,12 @@ using System.Collections.Generic;
 
 public class Field : MonoBehaviour
 {
+	public bool showLocalCost;
 	public BasicTower tower;
 	public Field nextField;
 	public Board board;
 	public TextMesh debug;
+	public bool routable;
 
 	public int costToReach = int.MaxValue;
 	public int cost = 1;
@@ -15,7 +17,10 @@ public class Field : MonoBehaviour
 
 	public virtual void FixedUpdate ()
 	{
-		debug.text = "";
+		if (routable && showLocalCost) {
+			debug.text = "" + cost;
+		}
+
 	}
 
 	public virtual void OnMouseDrag ()
@@ -43,6 +48,19 @@ public class Field : MonoBehaviour
 				result.Add (neighbour);
 			}
 		}
+		return result;
+	}
+
+	public List<Field> getRoutableNeighbours ()
+	{
+		List<Field> result = new List<Field> ();
+		foreach (Field f in getNeighbours ()) {
+			if (f.routable) {
+				result.Add (f);
+				//TODO optimize
+			}
+		}
+		//print ("In: "+getRoutableNeighbours)
 		return result;
 	}
 
