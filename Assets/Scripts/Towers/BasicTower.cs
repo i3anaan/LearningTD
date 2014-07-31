@@ -7,12 +7,9 @@ public class BasicTower : MonoBehaviour
 	public bool enabled = false;
 	public int fireRate;
 	private int fireCooldown;
-	public int damage;
 	public double fireRange;
-	public Bullet bulletType;
+	public AbstractBullet bulletType;
 	public Field fieldPlacedOn;
-
-	public bool dontOverkill = true;
 
 	
 	public virtual void FixedUpdate ()
@@ -34,7 +31,7 @@ public class BasicTower : MonoBehaviour
 			BasicCreep creep = gameObject.GetComponent<BasicCreep> ();
 			if (creep != null) {
 				if (getDistance (creep) < minDist) {
-					if (!dontOverkill || !creep.dieing ()) {
+					if (!bulletType.announcesDamage || !creep.dieing ()) {
 						closest = creep;
 						minDist = getDistance (creep);
 					}
@@ -49,10 +46,8 @@ public class BasicTower : MonoBehaviour
 	
 	public virtual void shootAt (BasicCreep creep)
 	{
-		Bullet bullet = Instantiate (bulletType, this.transform.position, Quaternion.identity) as Bullet;
+		AbstractBullet bullet = Instantiate (bulletType, this.transform.position, Quaternion.identity) as AbstractBullet;
 		bullet.target (creep);
-		bullet.damage = damage;
-		bullet.announcesDamage = dontOverkill;
 		bullet.transform.parent = this.transform;
 		fireCooldown = 0;
 	}

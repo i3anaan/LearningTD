@@ -1,12 +1,9 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Bullet : MonoBehaviour
+public class HomingBasicBullet : AbstractBullet
 {
-	private BasicCreep targetCreep;	
-	public float speed;
-	public int damage;
-	public bool announcesDamage;
+
 
 	public void Start ()
 	{
@@ -30,10 +27,5 @@ public class Bullet : MonoBehaviour
 		if (targetCreep == null) {
 			Destroy (this.gameObject);
 		}
-	}
-
-	public void target (BasicCreep creep)
-	{
-		this.targetCreep = creep;
 	}
 }

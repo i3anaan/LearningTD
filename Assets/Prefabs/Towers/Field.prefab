@@ -8,10 +8,10 @@ GameObject:
   serializedVersion: 4
   m_Component:
   - 4: {fileID: 400000}
-  - 33: {fileID: 3300000}
   - 64: {fileID: 6400000}
-  - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
+  - 23: {fileID: 2300000}
+  - 33: {fileID: 3300000}
   m_Layer: 0
   m_Name: Field
   m_TagString: Untagged
@@ -63,7 +63,7 @@ Transform:
   m_RootOrder: 0
 --- !u!23 &2300000
 Renderer:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
@@ -103,7 +103,7 @@ Renderer:
   m_SortingOrder: 0
 --- !u!33 &3300000
 MeshFilter:
-  m_ObjectHideFlags: 1
+  m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
@@ -153,17 +153,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 7d040f808da668a4986d49e4a8bb60d6, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  tower: 0
-  fireRate: 25
-  fireCooldown: 0
-  fireRange: 3
-  bulletType: {fileID: 11400000, guid: e99da403a3b2c71428b2d9ba03062665, type: 2}
-  towerMaterial: {fileID: 2100000, guid: fb99546701b00174c9dfcc2a5986faae, type: 2}
+  tower: {fileID: 0}
   nextField: {fileID: 0}
   board: {fileID: 0}
   debug: {fileID: 10200000}
   costToReach: 2147483647
-  deaths: 10
+  cost: 1
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
