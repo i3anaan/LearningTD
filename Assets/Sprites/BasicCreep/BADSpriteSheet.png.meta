@@ -1,6 +1,10 @@
 fileFormatVersion: 2
 guid: 9dca1bfe49a2eb64ca25d68888afac89
 TextureImporter:
+  fileIDToRecycleName:
+    21300000: BADSpriteSheet_0
+    21300002: BADSpriteSheet_1
+    21300004: BADSpriteSheet_2
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
