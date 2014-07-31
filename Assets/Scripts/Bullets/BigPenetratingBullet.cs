@@ -14,15 +14,15 @@ public class BigPenetratingBullet : AbstractBullet
 			Destroy (this.gameObject);
 		}
 	}
-
-	public void OnCollisionEnter2D (Collision2D other)
+	public virtual void OnTriggerEnter2D (Collider2D other)
 	{
-		print ("Collided with: " + other);
-		//if (other.gameObject is BasicCreep) {
-		//	((BasicCreep)other.gameObject).hit (damage);
-		//}
+		//print ("Trigger collision!");
+		//print ("OnTriggernEnter2D with: " + other);
+		BasicCreep creepHit = other.gameObject.GetComponent<BasicCreep> ();
+		if (creepHit != null) {
+			creepHit.hit (damage, false);
+		}
 	}
-
 	public override void target (BasicCreep creep)
 	{
 		float step = Time.fixedDeltaTime * speed;

@@ -36,9 +36,9 @@ public class GameController : MonoBehaviour
 			//Spawn units;
 			for (int i=0; i<spawnCount; i++) {
 				BasicCreep newCreep = Instantiate (creep, new Vector3 (Random.value - 1f, Random.value - 1f, 0f), Quaternion.identity) as BasicCreep;
+				newCreep.setBoard (board);
 				newCreep.setDestination (new Vector3 (0f, 0f, 0f));
 				newCreep.transform.parent = this.transform;
-				newCreep.setBoard (board);
 				newCreep.stupidity = creepStupidity;
 			}
 		}

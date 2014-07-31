@@ -34,6 +34,7 @@ public class BasicCreep : MonoBehaviour
 
 	public virtual Field getCurrentField ()
 	{
+		//print ("Board: " + board + "  x,y: " + (int)Mathf.Round (this.transform.position.x) + ", " + (int)Mathf.Round (this.transform.position.y));
 		return board.getField ((int)Mathf.Round (this.transform.position.x), (int)Mathf.Round (this.transform.position.y));
 	}
 
@@ -96,4 +97,6 @@ public class BasicCreep : MonoBehaviour
 	{
 		this.incomingDamage = this.incomingDamage + damage;
 	}
+
+
 }
