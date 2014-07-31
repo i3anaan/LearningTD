@@ -15,6 +15,7 @@ public class Field : MonoBehaviour
 	public int cost = 1;
 
 
+
 	public virtual void FixedUpdate ()
 	{
 		if (routable && showLocalCost) {
