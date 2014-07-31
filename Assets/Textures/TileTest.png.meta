@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 7666afcc9a58f95448fc51ef402e63ee
+guid: 9e4a37561338ba94da6d8dee9f417459
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Tower
+    21300000: TileTest
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -25,10 +25,10 @@ TextureImporter:
   textureFormat: -1
   maxTextureSize: 1024
   textureSettings:
-    filterMode: 0
-    aniso: 1
+    filterMode: -1
+    aniso: -1
     mipBias: -1
-    wrapMode: 1
+    wrapMode: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
