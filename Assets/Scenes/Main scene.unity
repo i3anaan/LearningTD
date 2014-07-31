@@ -382,8 +382,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 2
-<<<<<<< HEAD
-=======
 --- !u!1 &1808017046
 GameObject:
   m_ObjectHideFlags: 0
@@ -461,4 +459,3 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 4
->>>>>>> 98d4a532b2d5e26770b9daa1d773e981e234e31c
