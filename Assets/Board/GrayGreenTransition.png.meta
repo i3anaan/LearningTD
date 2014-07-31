@@ -1,8 +1,8 @@
 fileFormatVersion: 2
-guid: 3260bf9cc4268d246b40de2164956e8a
+guid: 6c59cd9c0558f4a46a6e2f694d6d7c2f
 TextureImporter:
   fileIDToRecycleName:
-    21300000: BaseTurret3
+    21300000: GrayGreenTransition
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -26,9 +26,9 @@ TextureImporter:
   maxTextureSize: 1024
   textureSettings:
     filterMode: -1
-    aniso: 1
+    aniso: -1
     mipBias: -1
-    wrapMode: 1
+    wrapMode: -1
   nPOTScale: 0
   lightmap: 0
   compressionQuality: 50
