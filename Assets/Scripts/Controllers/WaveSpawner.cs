@@ -9,6 +9,8 @@ public class WaveSpawner : MonoBehaviour
 	public bool endless;		//True = Repeat over child waves.
 	public int wave;
 
+	public Vector3 startPosition;
+	public Vector3 targetPosition;
 
 	private bool waveSpawningIsDone = false;
 	private bool allWavesDone;
@@ -51,10 +53,10 @@ public class WaveSpawner : MonoBehaviour
 	{
 		timeLeftForWave = maxTimePerWave;
 		if (endless) {
-			waves [wave % waves.Length].enabled = true;
+			activateWave (wave % waves.Length);
 		} else {
 			if (wave < waves.Length) {
-				waves [wave].enabled = true;
+				activateWave (wave);
 			} else {
 				allWavesDone = true;
 			}
@@ -63,6 +65,14 @@ public class WaveSpawner : MonoBehaviour
 		waveSpawningIsDone = false;
 		timeBeforeNextWave = 0;
 		wave++;
+	}
+
+	public void activateWave (int index)
+	{
+		waves [index].startPosition = startPosition;
+		waves [index].targetPosition = targetPosition;
+		AbstractWave newWave = waves [index].makeNewIteration ();
+		newWave.spawnCreeps ();
 	}
 
 }

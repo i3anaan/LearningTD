@@ -10,12 +10,26 @@ public class BasicCreep : MonoBehaviour
 	public float speed;
 	public Vector3 destination;	
 	public int stupidity;
+
+	public bool showHPbar;
+	public SpriteRenderer healthbar;
+
 	private Board board;
+	private int maxHealth;
+
+	public virtual void Awake ()
+	{
+		maxHealth = this.health;
+		if (!showHPbar) {
+			healthbar.enabled = false;
+		} else {
+			updateHealthBar ();
+		}
+	}
 
 
 
-
-	void FixedUpdate ()
+	public void FixedUpdate ()
 	{
 		float step = Time.fixedDeltaTime * speed;
 		float zAngle = Vector3.Angle (Vector3.up, destination - this.transform.position);
@@ -46,6 +60,12 @@ public class BasicCreep : MonoBehaviour
 		}
 		if (announcedPreviously) {
 			incomingDamage = incomingDamage - damage;
+		}
+		if (showHPbar) {
+			healthbar.enabled = true;
+			updateHealthBar ();
+		} else {
+			healthbar.enabled = false;
 		}
 	}
 
@@ -96,6 +116,15 @@ public class BasicCreep : MonoBehaviour
 	public virtual void addIncomingDamage (int damage)
 	{
 		this.incomingDamage = this.incomingDamage + damage;
+	}
+
+
+
+	public void updateHealthBar ()
+	{
+		float percent = (float)health / maxHealth;
+		healthbar.gameObject.transform.localScale = new Vector3 (percent, 0.1f, 1f);
+		healthbar.color = new Color ((1 - percent), percent, 0);
 	}
 
 

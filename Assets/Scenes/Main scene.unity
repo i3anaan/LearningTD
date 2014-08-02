@@ -74,6 +74,57 @@ NavMeshSettings:
     widthInaccuracy: 16.666666
     heightInaccuracy: 10
   m_NavMesh: {fileID: 0}
+--- !u!1 &606590663
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 606590664}
+  - 114: {fileID: 606590665}
+  m_Layer: 0
+  m_Name: Mixed wave
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &606590664
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 606590663}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 6.13328981, y: 3.91111493, z: .438232005}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 962907933}
+  m_RootOrder: 4
+--- !u!114 &606590665
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 606590663}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 56b07f6fba8d7dc438ef26b1885a4c42, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  startPosition: {x: 0, y: 0, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
+  creepTypes:
+  - {fileID: 11400000, guid: b54d78a6fa15a5b418a37ba4113fe7d0, type: 2}
+  - {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
+  - {fileID: 11400000, guid: 7357f5dacaae0a54d9b2aeecb3ba7923, type: 2}
+  amountPerType: 010000000a00000032000000
+  difficulty: 1
+  creepStupidity: 0
+  board: {fileID: 937666003}
+  framesInBetween: 3
+  spawning: 0
 --- !u!1 &895848463
 GameObject:
   m_ObjectHideFlags: 0
@@ -84,7 +135,7 @@ GameObject:
   - 4: {fileID: 895848464}
   - 114: {fileID: 895848465}
   m_Layer: 0
-  m_Name: Wave normal
+  m_Name: Normal wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -101,14 +152,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 962907933}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!114 &895848465
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 895848463}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56b07f6fba8d7dc438ef26b1885a4c42, type: 3}
   m_Name: 
@@ -121,8 +172,8 @@ MonoBehaviour:
   difficulty: 1
   creepStupidity: 0
   board: {fileID: 937666003}
-  amountPerTypeOriginal: 
   framesInBetween: 3
+  spawning: 0
 --- !u!1 &937666002
 GameObject:
   m_ObjectHideFlags: 0
@@ -192,9 +243,11 @@ Transform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 1696386401}
   - {fileID: 895848464}
   - {fileID: 1437988575}
   - {fileID: 2103540229}
+  - {fileID: 606590664}
   m_Father: {fileID: 1665672987}
   m_RootOrder: 0
 --- !u!114 &962907934
@@ -212,6 +265,8 @@ MonoBehaviour:
   maxTimePerWave: -1
   endless: 1
   wave: 0
+  startPosition: {x: -1, y: -1, z: 0}
+  targetPosition: {x: 0, y: 0, z: 0}
   waves: []
 --- !u!1 &1359185104
 GameObject:
@@ -325,7 +380,7 @@ GameObject:
   - 4: {fileID: 1437988575}
   - 114: {fileID: 1437988576}
   m_Layer: 0
-  m_Name: Wave weak
+  m_Name: Weak wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -342,14 +397,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 962907933}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!114 &1437988576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 1437988574}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56b07f6fba8d7dc438ef26b1885a4c42, type: 3}
   m_Name: 
@@ -357,13 +412,13 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   creepTypes:
-  - {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
+  - {fileID: 11400000, guid: 7357f5dacaae0a54d9b2aeecb3ba7923, type: 2}
   amountPerType: 64000000
-  difficulty: .100000001
+  difficulty: 1
   creepStupidity: 0
   board: {fileID: 937666003}
-  amountPerTypeOriginal: 
   framesInBetween: 3
+  spawning: 0
 --- !u!1 &1665672985
 GameObject:
   m_ObjectHideFlags: 0
@@ -412,6 +467,33 @@ Transform:
   - {fileID: 962907933}
   m_Father: {fileID: 0}
   m_RootOrder: 1
+--- !u!1 &1696386400
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 1696386401}
+  m_Layer: 0
+  m_Name: Instatiated Waves
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1696386401
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1696386400}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: .466881216, y: 4.10795879, z: -1.73632812}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 962907933}
+  m_RootOrder: 0
 --- !u!1 &2103540228
 GameObject:
   m_ObjectHideFlags: 0
@@ -422,7 +504,7 @@ GameObject:
   - 4: {fileID: 2103540229}
   - 114: {fileID: 2103540230}
   m_Layer: 0
-  m_Name: Wave boss
+  m_Name: Boss wave
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -439,14 +521,14 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 962907933}
-  m_RootOrder: 2
+  m_RootOrder: 3
 --- !u!114 &2103540230
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 2103540228}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 56b07f6fba8d7dc438ef26b1885a4c42, type: 3}
   m_Name: 
@@ -454,13 +536,13 @@ MonoBehaviour:
   startPosition: {x: 0, y: 0, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   creepTypes:
-  - {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
+  - {fileID: 11400000, guid: b54d78a6fa15a5b418a37ba4113fe7d0, type: 2}
   amountPerType: 01000000
-  difficulty: 100
+  difficulty: 1
   creepStupidity: 0
   board: {fileID: 937666003}
-  amountPerTypeOriginal: 
   framesInBetween: 3
+  spawning: 0
 --- !u!1 &2131783654
 GameObject:
   m_ObjectHideFlags: 0
