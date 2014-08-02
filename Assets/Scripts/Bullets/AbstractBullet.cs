@@ -3,9 +3,13 @@ using System.Collections;
 using System;
 public class AbstractBullet : MonoBehaviour
 {
-	protected BasicCreep targetCreep;	
-	public float speed;
-	public int damage;
+	protected BasicCreep targetCreep;
+	[HideInInspector]
+	public float
+		speed;
+	[HideInInspector]
+	public int
+		damage;
 	public bool announcesDamage; //Same as DontOverkill
 
 	public virtual void target (BasicCreep creep)

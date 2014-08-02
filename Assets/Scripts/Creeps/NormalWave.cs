@@ -1,20 +1,27 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BasicWave : AbstractWave
+public class NormalWave : AbstractWave
 {
 	public int framesInBetween;
 	private int cooldown;
 	private bool waveStart = false;
-	private int totalCreeps;
+	private int totalCreepsToSpawn;
+	private int creepsSpawned;
 
 
-	public void Start ()
+
+
+	public override void OnEnable ()
 	{
-		totalCreeps = 0;
+		base.OnEnable ();
+		totalCreepsToSpawn = 0;
+		creepsSpawned = 0;
 		foreach (int i in amountPerType) {
-			totalCreeps = totalCreeps + i;
+			totalCreepsToSpawn = totalCreepsToSpawn + i;
 		}
+
+
 	}
 
 
@@ -30,7 +37,7 @@ public class BasicWave : AbstractWave
 
 	private void spawnRandomCreep ()
 	{
-		int random = (int)(Random.value * totalCreeps);
+		int random = (int)(Random.value * (totalCreepsToSpawn - creepsSpawned));
 		int index = 0;
 		foreach (int i in amountPerType) {
 			if (i < random) {
@@ -40,19 +47,18 @@ public class BasicWave : AbstractWave
 				break;
 			}
 		}
-
 		amountPerType [index]--;
-		totalCreeps--;
+		creepsSpawned++;
 		BasicCreep newCreep = Instantiate (creepTypes [index], startPosition, Quaternion.identity) as BasicCreep;
 		newCreep.setBoard (board);
 		newCreep.setDestination (targetPosition);
-		newCreep.transform.parent = this.transform;
+		newCreep.transform.parent = waveIteration.transform;
 		newCreep.stupidity = creepStupidity;
-		newCreep.health = newCreep.health * difficulty;
-		newCreep.speed = newCreep.speed * ((difficulty - 1) * 1.3f + 1);
+		newCreep.health = (int)(newCreep.health * difficulty);
+		newCreep.speed = newCreep.speed;
 
-		if (totalCreeps <= 0) {
-			GameController.getInstance ().waveSpawningDone ();
+		if (creepsSpawned >= totalCreepsToSpawn) {
+			waveDone ();
 		}
 	}
 }

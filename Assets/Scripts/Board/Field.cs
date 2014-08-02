@@ -19,7 +19,7 @@ public class Field : MonoBehaviour
 	public virtual void FixedUpdate ()
 	{
 		if (routable && showLocalCost) {
-			debug.text = "" + cost;
+			debug.text = "" + getRoutingScore ();
 		}
 
 	}
@@ -31,6 +31,7 @@ public class Field : MonoBehaviour
 				tower = Instantiate (GameController.getInstance ().towerSelected, this.transform.position, Quaternion.identity) as BasicTower;
 				tower.fieldPlacedOn = this;
 				tower.enabled = true;		
+				tower.transform.parent = board.transform;
 			}
 		}
 	}

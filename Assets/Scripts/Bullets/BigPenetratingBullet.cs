@@ -10,7 +10,7 @@ public class BigPenetratingBullet : AbstractBullet
 	{
 		this.transform.position = this.transform.position + direction;
 		lifeTime--;
-		if (lifeTime < 0) {
+		if (lifeTime < 0) {	
 			Destroy (this.gameObject);
 		}
 	}
@@ -26,6 +26,8 @@ public class BigPenetratingBullet : AbstractBullet
 	public override void target (BasicCreep creep)
 	{
 		float step = Time.fixedDeltaTime * speed;
+		//TODO not yet working;
+		//Fails if spawns on top of, or extremely close to, a creep.
 		this.direction = Vector3.MoveTowards (this.transform.position, creep.transform.position, step) - this.transform.position;
 	}
 }

@@ -83,9 +83,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 0
+  bulletType: {fileID: 11400002, guid: f60b9952704685c4f9319e7caf304d7a, type: 2}
   fireRate: 40
   fireRange: 3
-  bulletType: {fileID: 11400002, guid: f60b9952704685c4f9319e7caf304d7a, type: 2}
+  bulletDamage: 10
+  bulletSpeed: 3
   fieldPlacedOn: {fileID: 0}
 --- !u!1001 &100100000
 Prefab:

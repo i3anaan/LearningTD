@@ -5,10 +5,12 @@ using System.Collections.Generic;
 public class BasicTower : MonoBehaviour
 {
 	public bool enabled = false;
-	public int fireRate;
-	private int fireCooldown;
-	public double fireRange;
 	public AbstractBullet bulletType;
+	public int fireRate;
+	public double fireRange;
+	public int bulletDamage;
+	public float bulletSpeed;
+	private int fireCooldown;
 	public Field fieldPlacedOn;
 
 	
@@ -49,6 +51,8 @@ public class BasicTower : MonoBehaviour
 		AbstractBullet bullet = Instantiate (bulletType, this.transform.position, Quaternion.identity) as AbstractBullet;
 		bullet.target (creep);
 		bullet.transform.parent = this.transform;
+		bullet.damage = bulletDamage;
+		bullet.speed = bulletSpeed;
 		fireCooldown = 0;
 	}
 	

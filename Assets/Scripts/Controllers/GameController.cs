@@ -32,6 +32,7 @@ public class GameController : MonoBehaviour
 	// Use this for initialization
 	public virtual void FixedUpdate ()
 	{
+		/*
 		ticks++;
 		if (ticks % ((int)(spawnTime / Time.fixedDeltaTime)) == 0) {
 			//Spawn units;
@@ -48,5 +49,6 @@ public class GameController : MonoBehaviour
 			//Update wave size;
 			spawnCount++;
 		}
+		*/
 	}
 }
