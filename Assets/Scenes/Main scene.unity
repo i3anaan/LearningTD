@@ -208,8 +208,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd28a484bae83c743b875d7c9fd9b85d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  timeBetweenWaves: 10
-  maxTimePerWave: 20
+  timeBetweenWaves: 100
+  maxTimePerWave: -1
   endless: 1
   wave: 0
   waves: []
@@ -225,6 +225,7 @@ GameObject:
   - 92: {fileID: 1359185107}
   - 124: {fileID: 1359185106}
   - 81: {fileID: 1359185105}
+  - 114: {fileID: 1359185110}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -273,7 +274,7 @@ Camera:
   far clip plane: 1000
   field of view: 60
   orthographic: 1
-  orthographic size: 5
+  orthographic size: 4
   m_Depth: -1
   m_CullingMask:
     serializedVersion: 2
@@ -297,6 +298,23 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
+--- !u!114 &1359185110
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 1359185104}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 508a9e281b604824d9df79e3107f26bb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  minX: -.5
+  maxX: 9.5
+  minY: -.5
+  maxY: 9.5
+  cameraMoveSpeedX: 4
+  cameraMoveSpeedY: 4
 --- !u!1 &1437988574
 GameObject:
   m_ObjectHideFlags: 0
@@ -479,7 +497,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 21300000, guid: 879fbfe1b18d0dd48a3ea37f9ae8a16a, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 64689296173d3d04b8737cfc32101646, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!4 &2131783656
 Transform:
@@ -489,7 +507,7 @@ Transform:
   m_GameObject: {fileID: 2131783654}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 4.5, y: 4.5, z: 10}
-  m_LocalScale: {x: .78125, y: .78125, z: .78125}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 937666004}
   m_RootOrder: 0
