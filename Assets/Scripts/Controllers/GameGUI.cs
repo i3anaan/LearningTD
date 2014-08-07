@@ -30,7 +30,7 @@ public class GameGUI : MonoBehaviour
 
 	public void OnGUI ()
 	{
-		//GUI.Box (new Rect (0, 0, guiWidth, Screen.height), "NIET TEST GUI");
+		GUI.Box (new Rect (0, 0, guiWidth, Screen.height), "");
 
 		for (int i=0; i<towers.Length; i++) {
 			BasicTower tower = towers [i];
