@@ -91,7 +91,6 @@ public class BasicCreep : MonoBehaviour
 		if (getCurrentField () == board.endField) {
 			return null;
 		}
-		//return getCurrentField ().nextField;
 		int minCost = int.MaxValue;		
 		foreach (Field f in getCurrentField().getNeighbours()) {
 			if (f.costToReach < minCost) {
