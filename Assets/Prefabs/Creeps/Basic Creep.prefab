@@ -145,7 +145,8 @@ MonoBehaviour:
   speed: 1
   destination: {x: 0, y: 0, z: 0}
   stupidity: 0
-  showHPbar: 0
+  showHPbar: 1
+  healthBarOffset: {x: 0, y: .5, z: 0}
   healthbar: {fileID: 21200002}
 --- !u!212 &21200000
 SpriteRenderer:

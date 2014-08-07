@@ -24,10 +24,13 @@ public class Field : MonoBehaviour
 
 	}
 
-	public virtual void OnMouseDrag ()
+
+	public virtual void OnMouseDown ()
 	{
 		if (tower == null) {
-			if (GameController.getInstance ().towerSelected != null) {
+			Vector3 mousePos = Input.mousePosition;
+			Vector3 worldMousePos = Camera.main.ScreenToWorldPoint (mousePos);
+			if (Mathf.Round (worldMousePos.x) == this.transform.position.x && Mathf.Round (worldMousePos.y) == this.transform.position.y && GameController.getInstance ().towerSelected != null) {
 				tower = Instantiate (GameController.getInstance ().towerSelected, this.transform.position, Quaternion.identity) as BasicTower;
 				tower.fieldPlacedOn = this;
 				tower.enabled = true;		

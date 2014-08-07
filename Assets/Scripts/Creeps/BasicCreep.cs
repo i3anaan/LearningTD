@@ -12,6 +12,7 @@ public class BasicCreep : MonoBehaviour
 	public int stupidity;
 
 	public bool showHPbar;
+	public Vector3 healthBarOffset;
 	public SpriteRenderer healthbar;
 
 	private Board board;
@@ -32,23 +33,44 @@ public class BasicCreep : MonoBehaviour
 	public void FixedUpdate ()
 	{
 		float step = Time.fixedDeltaTime * speed;
-		float zAngle = Vector3.Angle (Vector3.up, destination - this.transform.position);
-		this.transform.rotation = Quaternion.Euler (new Vector3 (0f, 0f, -zAngle));
-		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, step);
-		if (this.transform.position == destination) {
-			Field nextField = decideBestField ();
-			if (nextField != null) {
-				destination = nextField.transform.position;
-			} else {
-				print ("Reached end");
-				die ();
+		while (step>0.001) {
+			step = moveTowardsDestination (step);
+			if (this.transform.position == destination) {
+				Field nextField = decideBestField ();
+				if (nextField != null) {
+					destination = nextField.transform.position;
+				} else {
+					print ("Reached end");
+					die ();
+					step = 0;
+				}
 			}
 		}
 	}
 
+	protected virtual float moveTowardsDestination (float step)
+	{
+		//2 Possible angle calculate methods.
+		//float zAngle = Vector3.Angle (Vector3.up, destination - this.transform.position) * Mathf.Sign (Vector3.Cross (Vector3.up, destination - this.transform.position).z);
+		float zAngle = Mathf.Atan2 (destination.y - this.transform.position.y, destination.x - this.transform.position.x) * Mathf.Rad2Deg - 90;
+
+
+
+
+
+		float distance = Vector3.Distance (destination, this.transform.position);
+
+
+
+		this.transform.rotation = Quaternion.Euler (new Vector3 (0f, 0f, zAngle));
+		healthbar.transform.rotation = Quaternion.identity;
+		healthbar.transform.position = this.transform.position + healthBarOffset;
+		this.transform.position = Vector3.MoveTowards (this.transform.position, destination, step);
+		return step - distance;
+	}
+
 	public virtual Field getCurrentField ()
 	{
-		//print ("Board: " + board + "  x,y: " + (int)Mathf.Round (this.transform.position.x) + ", " + (int)Mathf.Round (this.transform.position.y));
 		return board.getField ((int)Mathf.Round (this.transform.position.x), (int)Mathf.Round (this.transform.position.y));
 	}
 
@@ -66,6 +88,7 @@ public class BasicCreep : MonoBehaviour
 			updateHealthBar ();
 		} else {
 			healthbar.enabled = false;
+			//TODO possibly performance issue
 		}
 	}
 

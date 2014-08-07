@@ -17,7 +17,7 @@ public class Board : MonoBehaviour
 		for (int x=0; x<10; x++) {
 			for (int y=0; y<10; y++) {
 
-				board [x, y] = Instantiate (fieldToPlace, new Vector3 (x, y, 0.1f), Quaternion.identity) as Field;
+				board [x, y] = Instantiate (fieldToPlace, new Vector3 (x, y, 0f), Quaternion.identity) as Field;
 				board [x, y].transform.parent = this.transform;
 				board [x, y].board = this;
 				if (x <= 4 && y == 2) {

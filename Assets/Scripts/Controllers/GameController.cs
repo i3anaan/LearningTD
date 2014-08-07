@@ -19,8 +19,8 @@ public class GameController : MonoBehaviour
 	public virtual void Awake ()
 	{
 		instance = this;
-	}	
-
+	}
+	
 	public static GameController getInstance ()
 	{
 		if (instance == null) {

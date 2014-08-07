@@ -27,7 +27,11 @@ public class BigPenetratingBullet : AbstractBullet
 	{
 		float step = Time.fixedDeltaTime * speed;
 		//TODO not yet working;
-		//Fails if spawns on top of, or extremely close to, a creep.
-		this.direction = Vector3.MoveTowards (this.transform.position, creep.transform.position, step) - this.transform.position;
+		//float zAngle = Vector3.Angle (Vector3.up, destination - this.transform.position) * -Mathf.Sign (Vector3.Cross (Vector3.up, destination - this.transform.position).z);
+		Vector3 dirNor = (creep.transform.position - this.transform.position).normalized;
+		if (dirNor.magnitude == 0) {
+			dirNor = new Vector3 (Random.value * 2 - 1, Random.value * 2 - 1, 0).normalized;
+		}
+		this.direction = dirNor * step;
 	}
 }
