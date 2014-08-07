@@ -28,27 +28,4 @@ public class GameController : MonoBehaviour
 		}
 		return instance;
 	}
-
-	// Use this for initialization
-	public virtual void FixedUpdate ()
-	{
-		/*
-		ticks++;
-		if (ticks % ((int)(spawnTime / Time.fixedDeltaTime)) == 0) {
-			//Spawn units;
-			for (int i=0; i<spawnCount; i++) {
-				BasicCreep newCreep = Instantiate (creep, new Vector3 (Random.value - 1f, Random.value - 1f, 0f), Quaternion.identity) as BasicCreep;
-				creepTotal++;
-				newCreep.setBoard (board);
-				newCreep.setDestination (new Vector3 (0f, 0f, 0f));
-				newCreep.transform.parent = this.transform;
-				newCreep.stupidity = creepStupidity;
-			}
-		}
-		if (ticks % ((int)(increaseWaveTimer / Time.fixedDeltaTime)) == 0) {
-			//Update wave size;
-			spawnCount++;
-		}
-		*/
-	}
 }

@@ -20,7 +20,6 @@ public class CameraController : MonoBehaviour
 	public void Start ()
 	{
 		this.cam = Camera.main;
-
 		if (minX > maxX || minY > maxY) {
 			Debug.LogError ("Invalid worldspace bounds!");
 		}
