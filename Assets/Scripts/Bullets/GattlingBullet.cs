@@ -1,12 +1,11 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class BigPenetratingBullet : AbstractBullet
+public class GattlingBullet : AbstractBullet
 {
 	private Vector3 direction;
 	public int lifeTime;
-	public bool destroyOnHit;
-
+		
 	public virtual void FixedUpdate ()
 	{
 		this.transform.position = this.transform.position + direction;
@@ -23,9 +22,6 @@ public class BigPenetratingBullet : AbstractBullet
 		if (creepHit != null) {
 			creepHit.hit (damage, false);
 		}
-		if (destroyOnHit) {
-			Destroy (this.gameObject);
-		}
 	}
 	public override void target (BasicCreep creep)
 	{
@@ -39,3 +35,4 @@ public class BigPenetratingBullet : AbstractBullet
 		this.direction = dirNor * step;
 	}
 }
+

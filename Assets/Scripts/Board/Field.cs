@@ -74,4 +74,18 @@ public class Field : MonoBehaviour
 		int towerCost = ((tower == null) ? 0 : tower.getCost ());
 		return cost + towerCost;
 	}
+
+
+	public bool isBlocking ()
+	{
+		return this.tower != null && tower.isBlocking;
+	}
+
+
+	public void damageTower (int damage)
+	{
+		if (tower != null) {
+			this.tower.takeDamage (damage);
+		}
+	}
 }

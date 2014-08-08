@@ -17,7 +17,7 @@ using System;
 public class AbstractWave : MonoBehaviour
 {
 	public Vector3 startPosition;
-	public Vector3 targetPosition;
+	public Field targetField;
 
 	public BasicCreep[] creepTypes;
 	public int[] amountPerType;

@@ -54,7 +54,7 @@ public class NormalWave : AbstractWave
 		creepsSpawned++;
 		BasicCreep newCreep = Instantiate (creepTypes [index], startPosition, Quaternion.identity) as BasicCreep;
 		newCreep.setBoard (board);
-		newCreep.setDestination (targetPosition);
+		newCreep.setDestination (targetField);
 		newCreep.transform.parent = this.transform;
 		newCreep.stupidity = creepStupidity;
 		newCreep.health = (int)(newCreep.health * difficulty);

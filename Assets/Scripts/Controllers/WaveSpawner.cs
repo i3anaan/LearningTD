@@ -3,7 +3,7 @@ using System.Collections;
 
 public class WaveSpawner : MonoBehaviour
 {
-
+	public Board board;
 	public int timeBetweenWaves;
 	public int maxTimePerWave;	//-1 means there is not maxTimePerWave
 	public bool endless;		//True = Repeat over child waves.
@@ -70,7 +70,7 @@ public class WaveSpawner : MonoBehaviour
 	public void activateWave (int index)
 	{
 		waves [index].startPosition = startPosition;
-		waves [index].targetPosition = targetPosition;
+		waves [index].targetField = board.getField (Mathf.RoundToInt (targetPosition.x), Mathf.RoundToInt (targetPosition.y));
 		AbstractWave newWave = waves [index].makeNewIteration ();
 		newWave.spawnCreeps ();
 	}

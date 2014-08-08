@@ -84,7 +84,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100004}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: .488415241, y: 1.30979216, z: -.100000001}
+  m_LocalPosition: {x: 0, y: .300000012, z: -.100000001}
   m_LocalScale: {x: 1, y: .100000001, z: 1}
   m_Children: []
   m_Father: {fileID: 400000}
@@ -143,10 +143,12 @@ MonoBehaviour:
   health: 1
   incomingDamage: 0
   speed: 1
-  destination: {x: 0, y: 0, z: 0}
+  towerDamage: 1
+  destination: {fileID: 0}
   stupidity: 0
+  fieldDetectionRange: .400000006
   showHPbar: 0
-  healthBarOffset: {x: 0, y: .5, z: 0}
+  healthBarOffset: {x: 0, y: .300000012, z: 0}
   healthbar: {fileID: 21200002}
 --- !u!212 &21200000
 SpriteRenderer:

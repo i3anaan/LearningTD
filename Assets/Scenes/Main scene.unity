@@ -100,8 +100,8 @@ Transform:
   m_LocalPosition: {x: 6.13328981, y: 3.91111493, z: .438232005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 962907933}
-  m_RootOrder: 4
+  m_Father: {fileID: 937666004}
+  m_RootOrder: 3
 --- !u!114 &606590665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -114,7 +114,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
+  targetField: {fileID: 0}
   creepTypes:
   - {fileID: 11400000, guid: b54d78a6fa15a5b418a37ba4113fe7d0, type: 2}
   - {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
@@ -151,7 +151,7 @@ Transform:
   m_LocalPosition: {x: 6.13329029, y: 3.91111517, z: .438232422}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 962907933}
+  m_Father: {fileID: 937666004}
   m_RootOrder: 2
 --- !u!114 &895848465
 MonoBehaviour:
@@ -165,7 +165,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
+  targetField: {fileID: 0}
   creepTypes:
   - {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
   amountPerType: 0a000000
@@ -215,6 +215,9 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2131783656}
+  - {fileID: 2103540229}
+  - {fileID: 895848464}
+  - {fileID: 606590664}
   m_Father: {fileID: 0}
   m_RootOrder: 2
 --- !u!1 &962907932
@@ -244,10 +247,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1696386401}
-  - {fileID: 2103540229}
-  - {fileID: 895848464}
   - {fileID: 1437988575}
-  - {fileID: 606590664}
   m_Father: {fileID: 1665672987}
   m_RootOrder: 0
 --- !u!114 &962907934
@@ -261,6 +261,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd28a484bae83c743b875d7c9fd9b85d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  board: {fileID: 937666003}
   timeBetweenWaves: 100
   maxTimePerWave: -1
   endless: 1
@@ -300,6 +301,8 @@ MonoBehaviour:
   towers:
   - {fileID: 11400000, guid: 0d028b49566a3c345b45c821de5bc2dd, type: 2}
   - {fileID: 11400000, guid: eda922426226ffd45a5fdf232e0539dc, type: 2}
+  - {fileID: 11400000, guid: b5e8356f6ce6c524c89744bf625a18d4, type: 2}
+  - {fileID: 11400000, guid: 51fcad7e5d13f6b4d9b9263c14fd63cb, type: 2}
 --- !u!4 &982938130
 Transform:
   m_ObjectHideFlags: 0
@@ -441,7 +444,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 962907933}
-  m_RootOrder: 3
+  m_RootOrder: 1
 --- !u!114 &1437988576
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -454,7 +457,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
+  targetField: {fileID: 0}
   creepTypes:
   - {fileID: 11400000, guid: 7357f5dacaae0a54d9b2aeecb3ba7923, type: 2}
   amountPerType: 64000000
@@ -564,7 +567,7 @@ Transform:
   m_LocalPosition: {x: 6.13328981, y: 3.91111493, z: .438232005}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 962907933}
+  m_Father: {fileID: 937666004}
   m_RootOrder: 1
 --- !u!114 &2103540230
 MonoBehaviour:
@@ -578,7 +581,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   startPosition: {x: 0, y: 0, z: 0}
-  targetPosition: {x: 0, y: 0, z: 0}
+  targetField: {fileID: 0}
   creepTypes:
   - {fileID: 11400000, guid: b54d78a6fa15a5b418a37ba4113fe7d0, type: 2}
   amountPerType: 01000000
