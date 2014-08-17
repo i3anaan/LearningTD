@@ -55,7 +55,7 @@ MonoBehaviour:
   speed: 2
   damage: 10
   announcesDamage: 0
-  lifeTime: 1000
+  lifeTime: 100
   destroyOnHit: 1
 --- !u!212 &21200000
 SpriteRenderer:

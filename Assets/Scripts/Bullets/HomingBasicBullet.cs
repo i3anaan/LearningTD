@@ -18,7 +18,7 @@ public class HomingBasicBullet : AbstractBullet
 			float step = Time.fixedDeltaTime * speed;
 			if (step > Vector3.Distance (this.transform.position, targetCreep.transform.position)) {
 				//Kill
-				targetCreep.hit (damage, announcesDamage);
+				targetCreep.hit (this, damage, announcesDamage);
 				Destroy (this.gameObject);
 			} else {
 				this.transform.position = Vector3.MoveTowards (this.transform.position, targetCreep.transform.position, step);

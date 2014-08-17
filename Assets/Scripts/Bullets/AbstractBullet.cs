@@ -10,6 +10,10 @@ public class AbstractBullet : MonoBehaviour
 	[HideInInspector]
 	public int
 		damage;
+	[HideInInspector]
+	public Field
+		targetAquiredField; //Field the target was in when this bullet was fired;
+
 	public bool announcesDamage; //Same as DontOverkill
 
 	public virtual void target (BasicCreep creep)

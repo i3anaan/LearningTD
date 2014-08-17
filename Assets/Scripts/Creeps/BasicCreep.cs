@@ -11,6 +11,7 @@ public class BasicCreep : MonoBehaviour
 	public int towerDamage;
 	public Field destination;	
 	public int stupidity;
+	public float destinationOffsetRange;
 
 	//Keep <=0.5;
 	public float fieldDetectionRange;
@@ -22,6 +23,8 @@ public class BasicCreep : MonoBehaviour
 	private Board board;
 	private int maxHealth;
 	private float stepLeft;
+	private Field oldCurrentField;
+	private Vector2 currentDestinationOffset;
 
 	public virtual void Awake ()
 	{
@@ -41,12 +44,24 @@ public class BasicCreep : MonoBehaviour
 		while (stepLeft>0) {
 			actOnPosition ();
 			stepLeft = moveTowardsDestination (stepLeft);
+
+
+			//Prevent unity editor freezes, should never happen.
+			if (stepLeft == Time.fixedDeltaTime * speed) {
+				Debug.LogError ("STEP NOT LOWERED. Infinite loop protection activated.");
+				stepLeft = 0;
+			}
 		}
 	}
 
 	private void actOnPosition ()
 	{
-		if (getCurrentField () != null) {
+
+		Field newCurrentField = getCurrentField ();
+		if (newCurrentField != oldCurrentField && newCurrentField != destination) {
+			setNewDestination ();
+		}
+		if (newCurrentField != null) {
 			if (Vector2.Distance (getCurrentField ().transform.position, this.transform.position) < fieldDetectionRange) {
 				//Somewhat close to a tower.
 				if (getCurrentField ().isBlocking ()) {
@@ -56,23 +71,18 @@ public class BasicCreep : MonoBehaviour
 			}
 		}
 
-		if (this.transform.position == destination.transform.position) {
-			Field nextField = decideBestField ();
-			if (nextField != null) {
-				destination = nextField;
-			} else {
-				print ("Reached end");
-				die ();
-				stepLeft = 0;
-			}
+		if (Vector3.Distance (this.transform.position, destination.transform.position) <= destinationOffsetRange) {
+			setNewDestination ();
 		}
+
+		oldCurrentField = newCurrentField;
 	}
 
 	protected virtual float moveTowardsDestination (float step)
 	{
 		//2 Possible angle calculate methods.
 		//float zAngle = Vector3.Angle (Vector3.up, destination - this.transform.position) * Mathf.Sign (Vector3.Cross (Vector3.up, destination - this.transform.position).z);
-		Vector3 desPos = destination.transform.position;
+		Vector3 desPos = destination.transform.position + ((Vector3)currentDestinationOffset);
 		float zAngle = Mathf.Atan2 (desPos.y - this.transform.position.y, desPos.x - this.transform.position.x) * Mathf.Rad2Deg - 90;
 
 
@@ -95,11 +105,15 @@ public class BasicCreep : MonoBehaviour
 		return board.getField ((int)Mathf.Round (this.transform.position.x), (int)Mathf.Round (this.transform.position.y));
 	}
 
-	public virtual void hit (int damage, bool announcedPreviously)
+	public virtual void hit (AbstractBullet bullet, int damage, bool announcedPreviously)
 	{
 		health = health - damage;
 
-		increaseRoutingScore (damage);
+		//avoid based on impact location
+		//increaseRoutingScore (getCurrentField (), damage);
+		//Avoid based on location when the bullet target was aquired.
+		increaseRoutingScore (bullet.targetAquiredField, damage);
+
 
 		if (health <= 0) {
 			die ();
@@ -119,6 +133,26 @@ public class BasicCreep : MonoBehaviour
 	public virtual void setDestination (Field dest)
 	{
 		this.destination = dest;
+	}
+
+	public virtual void setNewDestination ()
+	{
+		Field nextField = decideBestField ();
+		if (nextField != null) {
+			destination = nextField;
+			currentDestinationOffset = getRandomDestinationOffset ();
+		} else {
+			print ("Reached end");
+			die ();
+			stepLeft = 0;
+		}
+	}
+
+	public virtual Vector2 getRandomDestinationOffset ()
+	{
+		float angle = Random.value * 2 * Mathf.PI;
+		float offsetMagnitude = Random.value * destinationOffsetRange;
+		return new Vector2 (Mathf.Cos (angle) * offsetMagnitude, Mathf.Sin (angle) * offsetMagnitude);
 	}
 
 	public virtual void die ()
@@ -170,11 +204,10 @@ public class BasicCreep : MonoBehaviour
 		healthbar.color = new Color ((1 - percent), percent, 0);
 	}
 
-	private void increaseRoutingScore (int score)
+	private void increaseRoutingScore (Field fieldToIncrease, int score)
 	{
-		Field field = getCurrentField ();
-		if (field != null) {
-			field.cost = field.cost + score;
+		if (fieldToIncrease != null) {
+			fieldToIncrease.cost = fieldToIncrease.cost + score;
 		}
 	}
 

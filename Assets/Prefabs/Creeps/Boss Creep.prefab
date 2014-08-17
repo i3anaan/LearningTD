@@ -125,12 +125,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6c4916725165bf44bb3b7207ce6b01c8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  health: 1000
+  health: 100
   incomingDamage: 0
   speed: 1
   towerDamage: 1
   destination: {fileID: 0}
   stupidity: 0
+  destinationOffsetRange: 0
   fieldDetectionRange: .400000006
   showHPbar: 1
   healthBarOffset: {x: 0, y: .400000006, z: 0}

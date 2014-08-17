@@ -21,7 +21,7 @@ public class BigPenetratingBullet : AbstractBullet
 		//print ("OnTriggernEnter2D with: " + other);
 		BasicCreep creepHit = other.gameObject.GetComponent<BasicCreep> ();
 		if (creepHit != null) {
-			creepHit.hit (damage, false);
+			creepHit.hit (this, damage, false);
 		}
 		if (destroyOnHit) {
 			Destroy (this.gameObject);

@@ -53,6 +53,7 @@ public class BasicTower : MonoBehaviour
 		bullet.transform.parent = this.transform;
 		bullet.damage = bulletDamage;
 		bullet.speed = bulletSpeed;
+		bullet.targetAquiredField = creep.getCurrentField ();
 
 		bullet.target (creep);
 		fireCooldown = 0;

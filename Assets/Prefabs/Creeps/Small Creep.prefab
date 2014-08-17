@@ -146,6 +146,7 @@ MonoBehaviour:
   towerDamage: 1
   destination: {fileID: 0}
   stupidity: 0
+  destinationOffsetRange: .200000003
   fieldDetectionRange: .400000006
   showHPbar: 0
   healthBarOffset: {x: 0, y: .300000012, z: 0}
