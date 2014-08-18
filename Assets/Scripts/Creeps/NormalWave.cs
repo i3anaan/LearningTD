@@ -5,7 +5,6 @@ public class NormalWave : AbstractWave
 {
 	public int framesInBetween;
 	private int cooldown;
-	private bool waveStart = false;
 	private int totalCreepsToSpawn;
 	private int creepsSpawned;
 

@@ -12,6 +12,7 @@ public class BasicCreep : MonoBehaviour
 	public Field destination;	
 	public int stupidity;
 	public float destinationOffsetRange;
+	public int routingType;
 
 	//Keep <=0.5;
 	public float fieldDetectionRange;
@@ -26,7 +27,7 @@ public class BasicCreep : MonoBehaviour
 	private Field oldCurrentField;
 	private Vector2 currentDestinationOffset;
 
-	public virtual void Awake ()
+	public virtual void Start ()
 	{
 		maxHealth = this.health;
 		if (!showHPbar) {
@@ -107,12 +108,13 @@ public class BasicCreep : MonoBehaviour
 
 	public virtual void hit (AbstractBullet bullet, int damage, bool announcedPreviously)
 	{
-		health = health - damage;
+		int damageDone = Mathf.Min (damage, health);
+		health = health - damageDone;
 
 		//avoid based on impact location
 		//increaseRoutingScore (getCurrentField (), damage);
 		//Avoid based on location when the bullet target was aquired.
-		increaseRoutingScore (bullet.targetAquiredField, damage);
+		increaseRoutingScore (bullet.targetAquiredField, damageDone);
 
 
 		if (health <= 0) {
@@ -158,7 +160,7 @@ public class BasicCreep : MonoBehaviour
 	public virtual void die ()
 	{
 		Destroy (this.gameObject);
-		board.updateRouting ();
+		board.updateRouting (routingType);
 	}
 
 	public virtual void setBoard (Board board)
@@ -173,14 +175,14 @@ public class BasicCreep : MonoBehaviour
 		}
 		int minCost = int.MaxValue;		
 		foreach (Field f in getCurrentField().getNeighbours()) {
-			if (f.costToReach < minCost) {
-				minCost = f.costToReach;
+			if (f.costToReach [routingType] < minCost) {
+				minCost = f.costToReach [routingType];
 			}
 		}
 		
 		List<Field> viable = new List<Field> ();
 		foreach (Field f in getCurrentField().getNeighbours()) {
-			if (f.costToReach <= minCost + stupidity) {
+			if (f.costToReach [routingType] <= minCost + stupidity) {
 				viable.Add (f);
 			}
 		}
@@ -207,7 +209,7 @@ public class BasicCreep : MonoBehaviour
 	private void increaseRoutingScore (Field fieldToIncrease, int score)
 	{
 		if (fieldToIncrease != null) {
-			fieldToIncrease.cost = fieldToIncrease.cost + score;
+			fieldToIncrease.cost [routingType] = fieldToIncrease.cost [routingType] + score;
 		}
 	}
 

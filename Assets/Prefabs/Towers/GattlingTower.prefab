@@ -84,13 +84,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enabled: 0
   bulletType: {fileID: 11400000, guid: 8dae64176216b5a47b3ef5d24d76dbd3, type: 2}
-  fireRate: 1
+  fireRate: 2
   fireRange: 5
   bulletDamage: 1
-  bulletSpeed: 4
+  bulletSpeed: 10
   towerHealth: 100
   isBlocking: 1
   fieldPlacedOn: {fileID: 0}
+  targetter: {fileID: 11400000, guid: 3ada9e65811584e44be6977ed990b674, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -266,6 +266,7 @@ MonoBehaviour:
   maxTimePerWave: -1
   endless: 1
   wave: 0
+  difficulty: 1
   startPosition: {x: -1, y: -1, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}
   waves: []
@@ -303,6 +304,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: eda922426226ffd45a5fdf232e0539dc, type: 2}
   - {fileID: 11400000, guid: b5e8356f6ce6c524c89744bf625a18d4, type: 2}
   - {fileID: 11400000, guid: 51fcad7e5d13f6b4d9b9263c14fd63cb, type: 2}
+  - {fileID: 11400000, guid: 40289fbc3e682074cb7fdfc9599451b9, type: 2}
 --- !u!4 &982938130
 Transform:
   m_ObjectHideFlags: 0

@@ -3,7 +3,7 @@ using System.Collections;
 
 public class GameGUI : MonoBehaviour
 {
-	public Camera camera;
+	public new Camera camera;
 	// ( W / H );
 	public float guiAspectRatio = 0.5f;
 	private float guiWidth;

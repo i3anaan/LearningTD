@@ -4,7 +4,7 @@ using System.Collections.Generic;
 
 public class BasicTower : MonoBehaviour
 {
-	public bool enabled = false;
+	public new bool enabled = false;
 	public AbstractBullet bulletType;
 	public int fireRate;
 	public double fireRange;
@@ -14,6 +14,7 @@ public class BasicTower : MonoBehaviour
 	public bool isBlocking = true;
 	private int fireCooldown;
 	public Field fieldPlacedOn;
+	public AbstractTargetter targetter;
 
 	public virtual void FixedUpdate ()
 	{
@@ -27,23 +28,10 @@ public class BasicTower : MonoBehaviour
 	
 	public virtual void fire ()
 	{
-		GameObject[] creeps = GameObject.FindGameObjectsWithTag ("Creep");
-		double minDist = fireRange;
-		BasicCreep closest = null;
-		foreach (GameObject gameObject in creeps) {
-			BasicCreep creep = gameObject.GetComponent<BasicCreep> ();
-			if (creep != null) {
-				if (getDistance (creep) < minDist) {
-					if (!bulletType.announcesDamage || !creep.isDieing ()) {
-						closest = creep;
-						minDist = getDistance (creep);
-					}
-				} 
-			}
-		}
-		
-		if (closest != null) {
-			shootAt (closest);
+		BasicCreep target = targetter.chooseCreep (this);
+
+		if (target != null) {
+			shootAt (target);
 		}
 	}
 	

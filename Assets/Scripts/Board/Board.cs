@@ -10,6 +10,9 @@ public class Board : MonoBehaviour
 	public Field endField;
 	public Field startField;
 
+	public static readonly int ROUTING_TYPE_COUNT = 5;
+
+
 	// Use this for initialization
 	void Start ()
 	{
@@ -20,7 +23,7 @@ public class Board : MonoBehaviour
 				board [x, y] = Instantiate (fieldToPlace, new Vector3 (x, y, 0f), Quaternion.identity) as Field;
 				board [x, y].transform.parent = this.transform;
 				board [x, y].board = this;
-				if (x <= 4 && y == 2) {
+				if (x > 0 && x < 9 && y > 0 && y < 9) {
 					board [x, y].routable = false;
 				}
 			}
@@ -42,21 +45,29 @@ public class Board : MonoBehaviour
 
 	public void updateRouting ()
 	{
+		for (int i = 0; i<ROUTING_TYPE_COUNT; i++) {
+			updateRouting (i);
+		}
+	}
+
+
+	public void updateRouting (int pathingTypeIndex)
+	{
 		//Setup frontier.
-		endField.costToReach = endField.getRoutingScore ();
+		endField.costToReach [pathingTypeIndex] = endField.getRoutingScore (pathingTypeIndex);
 		List<Field> finalized = new List<Field> ();
 		List<Field> frontier = new List<Field> ();
 		finalized.Add (endField);
 		frontier.AddRange (endField.getRoutableNeighbours ());
 		foreach (Field f in frontier) {
-			f.nextField = endField;
-			f.costToReach = endField.getRoutingScore ();
+			f.nextField [pathingTypeIndex] = endField;
+			f.costToReach [pathingTypeIndex] = endField.getRoutingScore (pathingTypeIndex);
 		}
 				
 		while (frontier.Count>0) {
 			//print ("Frontier count: " + frontier.Count);
 			//Finalize current best move
-			Field nextShortest = getAndRemoveShortest (frontier);
+			Field nextShortest = getAndRemoveShortest (frontier, pathingTypeIndex);
 			finalized.Add (nextShortest);
 			List<Field> neighbours = nextShortest.getRoutableNeighbours ();
 
@@ -66,13 +77,13 @@ public class Board : MonoBehaviour
 					//Update route if better round found.
 					if (!frontier.Contains (n)) {
 						//New entry, reset costToReach, add to frontier.
-						n.costToReach = nextShortest.costToReach + n.getRoutingScore ();
-						n.nextField = nextShortest;
+						n.costToReach [pathingTypeIndex] = nextShortest.costToReach [pathingTypeIndex] + n.getRoutingScore (pathingTypeIndex);
+						n.nextField [pathingTypeIndex] = nextShortest;
 						frontier.Add (n);
 					}
-					if (nextShortest.costToReach + n.getRoutingScore () < n.costToReach) {
-						n.costToReach = nextShortest.costToReach + n.getRoutingScore ();
-						n.nextField = nextShortest;
+					if (nextShortest.costToReach [pathingTypeIndex] + n.getRoutingScore (pathingTypeIndex) < n.costToReach [pathingTypeIndex]) {
+						n.costToReach [pathingTypeIndex] = nextShortest.costToReach [pathingTypeIndex] + n.getRoutingScore (pathingTypeIndex);
+						n.nextField [pathingTypeIndex] = nextShortest;
 					}
 				} else {
 					//Ignore, already processed;
@@ -83,12 +94,12 @@ public class Board : MonoBehaviour
 				
 	}
 
-	private Field getAndRemoveShortest (List<Field> frontier)
+	private Field getAndRemoveShortest (List<Field> frontier, int pathingTypeIndex)
 	{
 		Field closest = null;
 		int minCost = int.MaxValue;
 		foreach (Field f in frontier) {
-			int cost = f.nextField.costToReach + f.getRoutingScore ();
+			int cost = f.nextField [pathingTypeIndex].costToReach [pathingTypeIndex] + f.getRoutingScore (pathingTypeIndex);
 			if (cost < minCost) {
 				minCost = cost;
 				closest = f;

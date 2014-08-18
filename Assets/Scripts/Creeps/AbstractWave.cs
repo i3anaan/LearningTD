@@ -21,7 +21,7 @@ public class AbstractWave : MonoBehaviour
 
 	public BasicCreep[] creepTypes;
 	public int[] amountPerType;
-	public float difficulty;
+	public double difficulty;
 	public int creepStupidity;
 	public Board board;
 

@@ -8,6 +8,7 @@ public class WaveSpawner : MonoBehaviour
 	public int maxTimePerWave;	//-1 means there is not maxTimePerWave
 	public bool endless;		//True = Repeat over child waves.
 	public int wave;
+	public double difficulty = 1;
 
 	public Vector3 startPosition;
 	public Vector3 targetPosition;
@@ -52,6 +53,9 @@ public class WaveSpawner : MonoBehaviour
 	public void spawnNextWave ()
 	{
 		timeLeftForWave = maxTimePerWave;
+		if (wave > waves.Length) {
+			difficulty = difficulty * 1.2;
+		}
 		if (endless) {
 			activateWave (wave % waves.Length);
 		} else {
@@ -72,6 +76,7 @@ public class WaveSpawner : MonoBehaviour
 		waves [index].startPosition = startPosition;
 		waves [index].targetField = board.getField (Mathf.RoundToInt (targetPosition.x), Mathf.RoundToInt (targetPosition.y));
 		AbstractWave newWave = waves [index].makeNewIteration ();
+		newWave.difficulty = difficulty;
 		newWave.spawnCreeps ();
 	}
 

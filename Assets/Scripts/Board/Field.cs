@@ -4,24 +4,34 @@ using System.Collections.Generic;
 
 public class Field : MonoBehaviour
 {
-	public bool showLocalCost;
+	public int showLocalCost;
 	public BasicTower tower;
-	public Field nextField;
+	public Field[] nextField;
 	public Board board;
 	public TextMesh debug;
 	public bool routable;
 
-	public int costToReach = int.MaxValue;
-	public int cost = 1;
+	public int[] costToReach;
+	public int[] cost;
+
+	public virtual void Awake ()
+	{
+		costToReach = new int[Board.ROUTING_TYPE_COUNT];
+		cost = new int[Board.ROUTING_TYPE_COUNT];
+		nextField = new Field[Board.ROUTING_TYPE_COUNT];
+		for (int i=0; i<Board.ROUTING_TYPE_COUNT; i++) {
+			costToReach [i] = int.MaxValue;
+			cost [i] = 1;
+		}
+	}
 
 
 
 	public virtual void FixedUpdate ()
 	{
-		if (routable && showLocalCost) {
-			debug.text = "" + getRoutingScore ();
+		if (routable && showLocalCost >= 0) {
+			debug.text = "" + getRoutingScore (showLocalCost);
 		}
-
 	}
 
 
@@ -69,10 +79,10 @@ public class Field : MonoBehaviour
 		return result;
 	}
 
-	public int getRoutingScore ()
+	public int getRoutingScore (int pathingTypeIndex)
 	{
 		int towerCost = ((tower == null) ? 0 : tower.getCost ());
-		return cost + towerCost;
+		return cost [pathingTypeIndex] + towerCost;
 	}
 
 

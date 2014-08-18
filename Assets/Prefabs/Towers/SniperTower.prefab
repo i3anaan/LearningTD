@@ -13,7 +13,7 @@ GameObject:
   - 23: {fileID: 2300000}
   - 114: {fileID: 11400000}
   m_Layer: 0
-  m_Name: PenetratorTower
+  m_Name: SniperTower
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -26,7 +26,7 @@ Transform:
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 100000}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: -1.71624911, y: 6.38855457, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
@@ -83,15 +83,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 0
-  bulletType: {fileID: 11400002, guid: f60b9952704685c4f9319e7caf304d7a, type: 2}
-  fireRate: 40
+  bulletType: {fileID: 11400000, guid: e99da403a3b2c71428b2d9ba03062665, type: 2}
+  fireRate: 100
   fireRange: 3
-  bulletDamage: 5
-  bulletSpeed: 3
-  towerHealth: 10
+  bulletDamage: 1000
+  bulletSpeed: 5
+  towerHealth: 100
   isBlocking: 1
   fieldPlacedOn: {fileID: 0}
-  targetter: {fileID: 11400000, guid: 24a6221679174b4498c831603b5f4fe5, type: 2}
+  targetter: {fileID: 11400000, guid: 5831662c23a9fc9498703fbc438a8f58, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1

@@ -86,11 +86,12 @@ MonoBehaviour:
   bulletType: {fileID: 11400000, guid: e99da403a3b2c71428b2d9ba03062665, type: 2}
   fireRate: 5
   fireRange: 3
-  bulletDamage: 1
+  bulletDamage: 5
   bulletSpeed: 5
   towerHealth: 100
   isBlocking: 1
   fieldPlacedOn: {fileID: 0}
+  targetter: {fileID: 11400000, guid: 1100bd2e0e7622543b8e8161ee599c0e, type: 2}
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
