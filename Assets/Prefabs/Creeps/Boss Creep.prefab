@@ -126,9 +126,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   health: 100
-  incomingDamage: 0
   speed: 1
   towerDamage: 1
+  goldBounty: 100
+  endDamage: 5
   destination: {fileID: 0}
   stupidity: 0
   destinationOffsetRange: 0
@@ -137,6 +138,7 @@ MonoBehaviour:
   showHPbar: 1
   healthBarOffset: {x: 0, y: .400000006, z: 0}
   healthbar: {fileID: 21200002}
+  incomingDamage: 0
 --- !u!212 &21200000
 SpriteRenderer:
   m_ObjectHideFlags: 1

@@ -2,18 +2,15 @@
 using System.Collections;
 using System.Collections.Generic;
 
-public class BasicTower : MonoBehaviour
+public class BasicTower : PassiveTower
 {
-	public new bool enabled = false;
 	public AbstractBullet bulletType;
 	public int fireRate;
 	public double fireRange;
 	public int bulletDamage;
 	public float bulletSpeed;
-	public int towerHealth;
-	public bool isBlocking = true;
+    public float bulletAccuracyPenalty;
 	private int fireCooldown;
-	public Field fieldPlacedOn;
 	public AbstractTargetter targetter;
 
 	public virtual void FixedUpdate ()
@@ -37,37 +34,16 @@ public class BasicTower : MonoBehaviour
 	
 	public virtual void shootAt (BasicCreep creep)
 	{
-		AbstractBullet bullet = Instantiate (bulletType, this.transform.position, Quaternion.identity) as AbstractBullet;
+        Vector3 bulletSpawnPos = this.transform.position;
+        bulletSpawnPos.z = -1;
+        AbstractBullet bullet = Instantiate(bulletType, bulletSpawnPos, Quaternion.identity) as AbstractBullet;
 		bullet.transform.parent = this.transform;
 		bullet.damage = bulletDamage;
 		bullet.speed = bulletSpeed;
+        bullet.accuracyPenalty = bulletAccuracyPenalty;
 		bullet.targetAquiredField = creep.getCurrentField ();
 
 		bullet.target (creep);
 		fireCooldown = 0;
-	}
-	
-	public virtual double getDistance (BasicCreep creep)
-	{
-		return Vector3.Distance (this.transform.position, creep.transform.position);
-	}
-
-	public virtual int getCost ()
-	{
-		return 50;
-	}
-
-	public virtual void takeDamage (int damage)
-	{
-		this.towerHealth = this.towerHealth - damage;
-		if (towerHealth < 0) {
-			die ();
-		}
-	}
-
-	public void die ()
-	{
-		this.fieldPlacedOn.tower = null;
-		Destroy (this.gameObject);
 	}
 }

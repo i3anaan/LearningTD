@@ -79,16 +79,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 100000}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d31fa1fd5111aa24fbfb5c84d646cd97, type: 3}
+  m_Script: {fileID: 11500000, guid: 561ce5119950d7447a70c452d08cc172, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   enabled: 0
-  bulletType: {fileID: 11400000, guid: e99da403a3b2c71428b2d9ba03062665, type: 2}
-  fireRate: 0
-  fireRange: 0
-  bulletDamage: 0
-  bulletSpeed: 0
   towerHealth: 1000
+  goldCost: 20
   isBlocking: 1
   fieldPlacedOn: {fileID: 0}
 --- !u!1001 &100100000

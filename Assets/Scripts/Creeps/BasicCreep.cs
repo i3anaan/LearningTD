@@ -4,28 +4,37 @@ using System.Collections.Generic;
 
 public class BasicCreep : MonoBehaviour
 {
-
+    //Stats
 	public int health;
-	public int incomingDamage;
 	public float speed;
 	public int towerDamage;
+    public int goldBounty;
+    public int endDamage;  //TODO better name
+    private int maxHealth;
+
+    //Routing
 	public Field destination;	
 	public int stupidity;
 	public float destinationOffsetRange;
 	public int routingType;
-
-	//Keep <=0.5;
-	public float fieldDetectionRange;
-
+    public float fieldDetectionRange;    //Keep <=0.5;
+    private Field oldCurrentField;
+    private Vector2 currentDestinationOffset;
+    
+    //References
+    private Board board;
+    private AbstractWave wave;
+	
+    //HealthBar
 	public bool showHPbar;
 	public Vector3 healthBarOffset;
 	public SpriteRenderer healthbar;
-
-	private Board board;
-	private int maxHealth;
+	
+    //Stored variables
+    [HideInInspector]
+    public int incomingDamage;
 	private float stepLeft;
-	private Field oldCurrentField;
-	private Vector2 currentDestinationOffset;
+	
 
 	public virtual void Start ()
 	{
@@ -64,11 +73,11 @@ public class BasicCreep : MonoBehaviour
 		}
 		if (newCurrentField != null) {
 			if (Vector2.Distance (getCurrentField ().transform.position, this.transform.position) < fieldDetectionRange) {
-				//Somewhat close to a tower.
+				//Somewhat close to a field.
 				if (getCurrentField ().isBlocking ()) {
 					stepLeft = 0;
 					destination.damageTower (this.towerDamage);
-				}
+                }
 			}
 		}
 
@@ -86,14 +95,7 @@ public class BasicCreep : MonoBehaviour
 		Vector3 desPos = destination.transform.position + ((Vector3)currentDestinationOffset);
 		float zAngle = Mathf.Atan2 (desPos.y - this.transform.position.y, desPos.x - this.transform.position.x) * Mathf.Rad2Deg - 90;
 
-
-
-
-
 		float distance = Vector3.Distance (desPos, this.transform.position);
-
-
-
 		this.transform.rotation = Quaternion.Euler (new Vector3 (0f, 0f, zAngle));
 		healthbar.transform.rotation = Quaternion.identity;
 		healthbar.transform.position = this.transform.position + healthBarOffset;
@@ -144,8 +146,8 @@ public class BasicCreep : MonoBehaviour
 			destination = nextField;
 			currentDestinationOffset = getRandomDestinationOffset ();
 		} else {
-			print ("Reached end");
-			die ();
+			
+			reachEnd();
 			stepLeft = 0;
 		}
 	}
@@ -159,9 +161,17 @@ public class BasicCreep : MonoBehaviour
 
 	public virtual void die ()
 	{
+        wave.goldEarned(goldBounty);
 		Destroy (this.gameObject);
 		board.updateRouting (routingType);
 	}
+
+    public virtual void reachEnd()
+    {
+        print("Reached end");
+        wave.creepReachedEnd(this);
+        Destroy(this.gameObject);
+    }
 
 	public virtual void setBoard (Board board)
 	{
@@ -213,5 +223,10 @@ public class BasicCreep : MonoBehaviour
 		}
 	}
 
+
+    public void setWave(AbstractWave wave)
+    {
+        this.wave = wave;
+    }
 
 }

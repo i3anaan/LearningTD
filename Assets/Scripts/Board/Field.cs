@@ -5,7 +5,7 @@ using System.Collections.Generic;
 public class Field : MonoBehaviour
 {
 	public int showLocalCost;
-	public BasicTower tower;
+    public PassiveTower tower;
 	public Field[] nextField;
 	public Board board;
 	public TextMesh debug;
@@ -13,6 +13,8 @@ public class Field : MonoBehaviour
 
 	public int[] costToReach;
 	public int[] cost;
+    private GameController gc;
+
 
 	public virtual void Awake ()
 	{
@@ -25,6 +27,10 @@ public class Field : MonoBehaviour
 		}
 	}
 
+    public virtual void Start()
+    {
+        gc = GameController.getInstance();
+    }
 
 
 	public virtual void FixedUpdate ()
@@ -41,13 +47,26 @@ public class Field : MonoBehaviour
 			Vector3 mousePos = Input.mousePosition;
 			Vector3 worldMousePos = Camera.main.ScreenToWorldPoint (mousePos);
 			if (Mathf.Round (worldMousePos.x) == this.transform.position.x && Mathf.Round (worldMousePos.y) == this.transform.position.y && GameController.getInstance ().towerSelected != null) {
-				tower = Instantiate (GameController.getInstance ().towerSelected, this.transform.position, Quaternion.identity) as BasicTower;
-				tower.fieldPlacedOn = this;
-				tower.enabled = true;		
-				tower.transform.parent = board.transform;
+                placeTower(gc.towerSelected);
 			}
 		}
 	}
+
+    public virtual bool placeTower(PassiveTower towerToPlace)
+    {
+        if (gc.spendGold(towerToPlace.goldCost))
+        {
+            tower = Instantiate(towerToPlace, this.transform.position - (new Vector3(0f, 0f, -1f)), Quaternion.identity) as PassiveTower;
+            tower.fieldPlacedOn = this;
+            tower.enabled = true;
+            tower.transform.parent = board.transform;
+            return true;
+        }
+        else
+        {
+            return false;
+        }
+    }
 
 	public List<Field> getNeighbours ()
 	{

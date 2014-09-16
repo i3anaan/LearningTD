@@ -4,18 +4,22 @@ using System.Collections;
 public class GameGUI : MonoBehaviour
 {
 	public new Camera camera;
+    public GUIStyle GUIbackground;
+    public GUIStyle GUIText;
 	// ( W / H );
 	public float guiAspectRatio = 0.5f;
 	private float guiWidth;
 	private float guiPercentage;
 	private GameController gc;
 
-	public BasicTower[] towers;
+    public PassiveTower[] towers;
+	public Renderer selectionHighlight;
 
 
 	public void Start ()
 	{
 		gc = GameController.getInstance ();
+        GUIbackground.normal.textColor = Color.red;
 	}
 
 
@@ -30,14 +34,17 @@ public class GameGUI : MonoBehaviour
 
 	public void OnGUI ()
 	{
-		GUI.Box (new Rect (0, 0, guiWidth, Screen.height), "");
+        GUI.Box(new Rect(0, 0, guiWidth, Screen.height), "", GUIbackground);
 
 		for (int i=0; i<towers.Length; i++) {
-			BasicTower tower = towers [i];
-			if (GUI.Button (new Rect (0, i * 50, guiWidth, 50), tower.name)) {
+			PassiveTower tower = towers [i];
+			if (GUI.Button (new Rect (0, i * 50, guiWidth, 50), tower.name +" ("+tower.goldCost+")")) {
 				gc.towerSelected = tower;
 			}
 		}
+
+        GUI.Box(new Rect(0f * Screen.width, 0.8f * Screen.height, guiWidth, 0.1f * Screen.height), "Gold: " + gc.currentGold, GUIText);
+        GUI.Box(new Rect(0f * Screen.width, 0.9f * Screen.height, guiWidth, 0.1f * Screen.height), "Lives: " + gc.livesLeft, GUIText);
 	}
 
 

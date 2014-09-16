@@ -88,7 +88,9 @@ MonoBehaviour:
   fireRange: 3
   bulletDamage: 5
   bulletSpeed: 3
+  bulletAccuracyPenalty: 0
   towerHealth: 10
+  goldCost: 150
   isBlocking: 1
   fieldPlacedOn: {fileID: 0}
   targetter: {fileID: 11400000, guid: 24a6221679174b4498c831603b5f4fe5, type: 2}

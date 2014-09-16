@@ -24,10 +24,17 @@ public class AbstractWave : MonoBehaviour
 	public double difficulty;
 	public int creepStupidity;
 	public Board board;
+    private GameController gc;
 
 	protected WaveSpawner waveSpawner;
 	protected AbstractWave waveIteration;
 	private int iterationNumber; 		//How many time this wave has been spawned (for endless)
+
+    public virtual void Start()
+    {
+        gc = GameController.getInstance();
+    }
+
 
 	//Should call WaveSpawner.WaveDone() when this wave has finished spawning;
 	public virtual void spawnCreeps ()
@@ -65,4 +72,14 @@ public class AbstractWave : MonoBehaviour
 		waveSpawner.waveSpawningDone ();
 		this.enabled = false;
 	}
+
+    public virtual void goldEarned(int gold)
+    {
+        gc.currentGold = gc.currentGold + gold;
+    }
+
+    public virtual void creepReachedEnd(BasicCreep creep)
+    {
+        gc.damageLives(creep.endDamage);
+    }
 }

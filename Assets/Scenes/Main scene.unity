@@ -281,7 +281,7 @@ GameObject:
   - 114: {fileID: 982938129}
   m_Layer: 0
   m_Name: GameGUI
-  m_TagString: Untagged
+  m_TagString: GameGUI
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -298,6 +298,124 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   camera: {fileID: 1359185108}
+  GUIbackground:
+    m_Name: 
+    m_Normal:
+      m_Background: {fileID: 2800000, guid: f41980f928633fa489025e3065d992c2, type: 3}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 0
+    m_FontStyle: 0
+    m_Alignment: 0
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 1
+    m_StretchHeight: 0
+  GUIText:
+    m_Name: 
+    m_Normal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 1, g: 1, b: 1, a: 1}
+    m_Hover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Active:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Focused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnNormal:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnHover:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnActive:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_OnFocused:
+      m_Background: {fileID: 0}
+      m_TextColor: {r: 0, g: 0, b: 0, a: 1}
+    m_Border:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Margin:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Padding:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Overflow:
+      m_Left: 0
+      m_Right: 0
+      m_Top: 0
+      m_Bottom: 0
+    m_Font: {fileID: 0}
+    m_FontSize: 30
+    m_FontStyle: 1
+    m_Alignment: 0
+    m_WordWrap: 0
+    m_RichText: 1
+    m_TextClipping: 0
+    m_ImagePosition: 0
+    m_ContentOffset: {x: 0, y: 0}
+    m_FixedWidth: 0
+    m_FixedHeight: 0
+    m_StretchWidth: 1
+    m_StretchHeight: 0
   guiAspectRatio: .5
   towers:
   - {fileID: 11400000, guid: 0d028b49566a3c345b45c821de5bc2dd, type: 2}
@@ -305,6 +423,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b5e8356f6ce6c524c89744bf625a18d4, type: 2}
   - {fileID: 11400000, guid: 51fcad7e5d13f6b4d9b9263c14fd63cb, type: 2}
   - {fileID: 11400000, guid: 40289fbc3e682074cb7fdfc9599451b9, type: 2}
+  selectionHighlight: {fileID: 0}
 --- !u!4 &982938130
 Transform:
   m_ObjectHideFlags: 0
@@ -495,7 +614,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e2fa5e0615c0fa042a3957cbc048ee13, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  towerSelected: {fileID: 11400000, guid: 0d028b49566a3c345b45c821de5bc2dd, type: 2}
+  towerSelected: {fileID: 0}
   increaseWaveTimer: 5
   spawnTime: 1
   creep: {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
@@ -503,6 +622,8 @@ MonoBehaviour:
   board: {fileID: 937666003}
   creepStupidity: 0
   creepTotal: 0
+  currentGold: 400
+  livesLeft: 30
 --- !u!4 &1665672987
 Transform:
   m_ObjectHideFlags: 0

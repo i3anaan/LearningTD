@@ -53,11 +53,12 @@ public class NormalWave : AbstractWave
 		creepsSpawned++;
 		BasicCreep newCreep = Instantiate (creepTypes [index], startPosition, Quaternion.identity) as BasicCreep;
 		newCreep.setBoard (board);
+        newCreep.setWave(this);
 		newCreep.setDestination (targetField);
 		newCreep.transform.parent = this.transform;
 		newCreep.stupidity = creepStupidity;
 		newCreep.health = (int)(newCreep.health * difficulty);
-		newCreep.speed = newCreep.speed;
+		newCreep.speed = newCreep.speed; //TODO
 
 		if (creepsSpawned >= totalCreepsToSpawn) {
 			waveDone ();
