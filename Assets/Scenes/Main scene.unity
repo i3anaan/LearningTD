@@ -424,6 +424,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 51fcad7e5d13f6b4d9b9263c14fd63cb, type: 2}
   - {fileID: 11400000, guid: 40289fbc3e682074cb7fdfc9599451b9, type: 2}
   selectionHighlight: {fileID: 0}
+  floatingText_Gold: {fileID: 11400000, guid: c9be86e5c70b9cd40bc8a7b9e6a4d4ad, type: 2}
 --- !u!4 &982938130
 Transform:
   m_ObjectHideFlags: 0
@@ -615,6 +616,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   towerSelected: {fileID: 0}
+  gameGUI: {fileID: 982938129}
   increaseWaveTimer: 5
   spawnTime: 1
   creep: {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}

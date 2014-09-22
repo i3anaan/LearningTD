@@ -130,6 +130,7 @@ MonoBehaviour:
   towerDamage: 1
   goldBounty: 100
   endDamage: 5
+  goldIndicator: 1
   destination: {fileID: 0}
   stupidity: 0
   destinationOffsetRange: 0

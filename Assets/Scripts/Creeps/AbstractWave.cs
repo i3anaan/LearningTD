@@ -82,4 +82,9 @@ public class AbstractWave : MonoBehaviour
     {
         gc.damageLives(creep.endDamage);
     }
+
+    public MonoBehaviour getFloatingText_Gold()
+    {
+        return gc.gameGUI.floatingText_Gold;
+    }
 }

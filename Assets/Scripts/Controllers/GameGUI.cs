@@ -14,6 +14,7 @@ public class GameGUI : MonoBehaviour
 
     public PassiveTower[] towers;
 	public Renderer selectionHighlight;
+    public MonoBehaviour floatingText_Gold;
 
 
 	public void Start ()
@@ -46,6 +47,4 @@ public class GameGUI : MonoBehaviour
         GUI.Box(new Rect(0f * Screen.width, 0.8f * Screen.height, guiWidth, 0.1f * Screen.height), "Gold: " + gc.currentGold, GUIText);
         GUI.Box(new Rect(0f * Screen.width, 0.9f * Screen.height, guiWidth, 0.1f * Screen.height), "Lives: " + gc.livesLeft, GUIText);
 	}
-
-
 }

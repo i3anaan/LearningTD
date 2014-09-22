@@ -6,6 +6,7 @@ public class GameController : MonoBehaviour
     public PassiveTower towerSelected;
 
 	private static GameController instance;
+    public GameGUI gameGUI;
 
 	public int increaseWaveTimer;
 	public int spawnTime;

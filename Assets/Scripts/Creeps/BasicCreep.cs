@@ -4,13 +4,14 @@ using System.Collections.Generic;
 
 public class BasicCreep : MonoBehaviour
 {
-    //Stats
+    //Stats / Settings
 	public int health;
 	public float speed;
 	public int towerDamage;
     public int goldBounty;
     public int endDamage;  //TODO better name
     private int maxHealth;
+    public bool goldIndicator;
 
     //Routing
 	public Field destination;	
@@ -120,7 +121,7 @@ public class BasicCreep : MonoBehaviour
 
 
 		if (health <= 0) {
-			die ();
+			killed ();
 		}
 		if (announcedPreviously) {
 			incomingDamage = incomingDamage - damage;
@@ -159,10 +160,16 @@ public class BasicCreep : MonoBehaviour
 		return new Vector2 (Mathf.Cos (angle) * offsetMagnitude, Mathf.Sin (angle) * offsetMagnitude);
 	}
 
-	public virtual void die ()
+	public virtual void killed ()
 	{
         wave.goldEarned(goldBounty);
-		Destroy (this.gameObject);
+
+        if (goldIndicator) {
+            FloatingText ft = Instantiate(wave.getFloatingText_Gold(), Camera.main.WorldToViewportPoint(this.transform.position)+new Vector3(0,0,Random.Range(-0.1f,0.1f)), Quaternion.identity) as FloatingText;
+            ft.guiText.text = this.goldBounty + "g";
+        }
+
+        Destroy (this.gameObject);
 		board.updateRouting (routingType);
 	}
 
