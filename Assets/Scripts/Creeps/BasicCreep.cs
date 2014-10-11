@@ -218,7 +218,7 @@ public class BasicCreep : MonoBehaviour
 
 	public void updateHealthBar ()
 	{
-		float percent = (float)health / maxHealth;
+		float percent = Mathf.Clamp((float)health / maxHealth,0,1);
 		healthbar.gameObject.transform.localScale = new Vector3 (percent, 0.1f, 1f);
 		healthbar.color = new Color ((1 - percent), percent, 0);
 	}

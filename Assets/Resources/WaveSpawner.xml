@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="Windows-1252"?>
+<WaveSpawner xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <Time_between_waves>100</Time_between_waves>
+  <Max_time_per_wave>-1</Max_time_per_wave>
+  <Endless>True</Endless>
+  <Start_wave>0</Start_wave>
+  <Difficulty>1</Difficulty>
+  <Start_position x="-1" y="-1" z="0" />
+  <Target_position x="0" y="0" z="0" />
+  <waves>
+    <DeserializedWave>
+      <startPosition x="0" y="0" z="0" />
+      <amountPerType>
+        <string>100</string>
+      </amountPerType>
+      <difficulty>1</difficulty>
+      <creepStupidity>0</creepStupidity>
+    </DeserializedWave>
+    <DeserializedWave>
+      <startPosition x="0" y="0" z="0" />
+      <amountPerType>
+        <string>1</string>
+      </amountPerType>
+      <difficulty>1</difficulty>
+      <creepStupidity>0</creepStupidity>
+    </DeserializedWave>
+    <DeserializedWave>
+      <startPosition x="0" y="0" z="0" />
+      <amountPerType>
+        <string>10</string>
+      </amountPerType>
+      <difficulty>1</difficulty>
+      <creepStupidity>0</creepStupidity>
+    </DeserializedWave>
+    <DeserializedWave>
+      <startPosition x="0" y="0" z="0" />
+      <amountPerType>
+        <string>1</string>
+        <string>10</string>
+        <string>50</string>
+      </amountPerType>
+      <difficulty>1</difficulty>
+      <creepStupidity>0</creepStupidity>
+    </DeserializedWave>
+  </waves>
+</WaveSpawner>

@@ -3,7 +3,8 @@ using System.Collections;
 
 public class WaveSpawner : MonoBehaviour
 {
-	public Board board;
+	private Board board;
+    private GameController gc;
 	public int timeBetweenWaves;
 	public int maxTimePerWave;	//-1 means there is not maxTimePerWave
 	public bool endless;		//True = Repeat over child waves.
@@ -20,10 +21,20 @@ public class WaveSpawner : MonoBehaviour
 
 	public AbstractWave[] waves;
 
+    public void Awake()
+    {
+        if (GameObject.Find("Instantiated Waves") == null)
+        {
+            GameObject instantiatedWavesParentObject = new GameObject("Instantiated Waves");
+            instantiatedWavesParentObject.transform.parent = this.transform;
+        }
+    }
 
 	public void Start ()
 	{
 		waves = this.gameObject.GetComponentsInChildren<AbstractWave> ();
+        gc = GameController.getInstance();
+        board = gc.board;
 		waveSpawningDone ();
 	}
 
