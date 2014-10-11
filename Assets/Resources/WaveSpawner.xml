@@ -5,42 +5,34 @@
   <Endless>True</Endless>
   <Start_wave>0</Start_wave>
   <Difficulty>1</Difficulty>
-  <Start_position x="-1" y="-1" z="0" />
-  <Target_position x="0" y="0" z="0" />
+  <Start_position x="-1" y="-1" />
   <waves>
     <DeserializedWave>
-      <startPosition x="0" y="0" z="0" />
+      <prefab>Small wave</prefab>
       <amountPerType>
         <string>100</string>
       </amountPerType>
-      <difficulty>1</difficulty>
-      <creepStupidity>0</creepStupidity>
     </DeserializedWave>
     <DeserializedWave>
-      <startPosition x="0" y="0" z="0" />
+      <prefab>Boss wave</prefab>
       <amountPerType>
         <string>1</string>
       </amountPerType>
-      <difficulty>1</difficulty>
-      <creepStupidity>0</creepStupidity>
     </DeserializedWave>
     <DeserializedWave>
-      <startPosition x="0" y="0" z="0" />
+      <prefab>Normal wave</prefab>
       <amountPerType>
         <string>10</string>
       </amountPerType>
-      <difficulty>1</difficulty>
-      <creepStupidity>0</creepStupidity>
     </DeserializedWave>
     <DeserializedWave>
-      <startPosition x="0" y="0" z="0" />
+      <prefab>Mixed wave</prefab>
       <amountPerType>
         <string>1</string>
         <string>10</string>
         <string>50</string>
       </amountPerType>
-      <difficulty>1</difficulty>
-      <creepStupidity>0</creepStupidity>
+      <difficulty>10</difficulty>
     </DeserializedWave>
   </waves>
 </WaveSpawner>

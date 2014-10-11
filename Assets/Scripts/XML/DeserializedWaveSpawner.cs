@@ -25,14 +25,24 @@ public class DeserializedWaveSpawner
     [XmlElement("Target_position")]
     public SVector3 targetPosition;
 
+    //[XmlElement("Target_position")]
+    //public string[] waves;
+
     public DeserializedWave[] waves;
     public class DeserializedWave
     {
+        public string prefab;
+
         public SVector3 startPosition;
         public DeserializedCreep[] creepTypes;
         public string[] amountPerType;
         public string difficulty;
         public string creepStupidity;
+
+        public string randomStuff;
+        public string randomStuff2;
+        public string randomStuff3;
+        public string randomStuff4;
     }
 
     public class DeserializedCreep
@@ -47,16 +57,6 @@ public class DeserializedWaveSpawner
     {
         public SVector3()
         {
-            this.x = "0";
-            this.y = "0";
-            this.z = "0";
-        }
-
-        public SVector3(Vector3 vec3)
-        {
-            this.x = vec3.x.ToString();
-            this.y = vec3.y.ToString();
-            this.z = vec3.z.ToString();
         }
         [XmlAttribute("x")]
         public string x;
@@ -69,5 +69,35 @@ public class DeserializedWaveSpawner
         {
             return new Vector3(float.Parse(x, CultureInfo.InvariantCulture), float.Parse(y, CultureInfo.InvariantCulture), float.Parse(z, CultureInfo.InvariantCulture));
         }
+    }
+    public static SVector3 getOverwritingSVector3(Vector3 overwritingVec)
+    {
+        return getOverwritingSVector3(new Vector3(),overwritingVec);
+    }
+    
+    public static SVector3 getOverwritingSVector3(Vector3 baseVec, Vector3 overwritingVec)
+    {
+        if (baseVec == overwritingVec)
+        {
+            return null;
+        }
+        else
+        {
+            SVector3 output = new SVector3();
+            output.x = toStringNullWhenEqual(baseVec.x, overwritingVec.x);
+            output.y = toStringNullWhenEqual(baseVec.y, overwritingVec.y);
+            output.z = toStringNullWhenEqual(baseVec.z, overwritingVec.z);
+            return output;
+        }
+    }
+
+    public static string toStringNullWhenZero(string s)
+    {
+        return toStringNullWhenEqual("0", s);
+    }
+
+    public static string toStringNullWhenEqual<T>(T baseS, T overwritingS)
+    {
+        return baseS.Equals(overwritingS) ? null : overwritingS.ToString();
     }
 }
