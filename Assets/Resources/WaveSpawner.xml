@@ -5,34 +5,25 @@
   <Endless>True</Endless>
   <Start_wave>0</Start_wave>
   <Difficulty>1</Difficulty>
-  <Start_position x="-1" y="-1" />
+  <Start_position x="-1" y="-1" z="0" />
   <waves>
-    <DeserializedWave>
-      <prefab>Small wave</prefab>
-      <amountPerType>
-        <string>100</string>
-      </amountPerType>
-    </DeserializedWave>
-    <DeserializedWave>
+    <DeserializedWave xsi:type="DeserializedNormalWave">
       <prefab>Boss wave</prefab>
-      <amountPerType>
-        <string>1</string>
-      </amountPerType>
     </DeserializedWave>
-    <DeserializedWave>
+    <DeserializedWave xsi:type="DeserializedNormalWave">
       <prefab>Normal wave</prefab>
-      <amountPerType>
-        <string>10</string>
-      </amountPerType>
     </DeserializedWave>
-    <DeserializedWave>
+    <DeserializedWave xsi:type="DeserializedNormalWave">
       <prefab>Mixed wave</prefab>
       <amountPerType>
-        <string>1</string>
-        <string>10</string>
+        <string>100</string>
+        <string>11</string>
         <string>50</string>
       </amountPerType>
       <difficulty>10</difficulty>
+    </DeserializedWave>
+    <DeserializedWave xsi:type="DeserializedNormalWave">
+      <prefab>Small wave</prefab>
     </DeserializedWave>
   </waves>
 </WaveSpawner>

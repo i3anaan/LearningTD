@@ -8,7 +8,7 @@ public class WaveSpawner : MonoBehaviour
 	public int timeBetweenWaves;
 	public int maxTimePerWave;	//-1 means there is not maxTimePerWave
 	public bool endless;		//True = Repeat over child waves.
-	public int wave;
+	public int startWave;
 	public double difficulty = 1;
 
 	public Vector3 startPosition;
@@ -64,14 +64,14 @@ public class WaveSpawner : MonoBehaviour
 	public void spawnNextWave ()
 	{
 		timeLeftForWave = maxTimePerWave;
-		if (wave > waves.Length) {
+		if (startWave > waves.Length) {
 			difficulty = difficulty * 1.2;
 		}
 		if (endless) {
-			activateWave (wave % waves.Length);
+			activateWave (startWave % waves.Length);
 		} else {
-			if (wave < waves.Length) {
-				activateWave (wave);
+			if (startWave < waves.Length) {
+				activateWave (startWave);
 			} else {
 				allWavesDone = true;
 			}
@@ -79,7 +79,7 @@ public class WaveSpawner : MonoBehaviour
 
 		waveSpawningIsDone = false;
 		timeBeforeNextWave = 0;
-		wave++;
+		startWave++;
 	}
 
 	public void activateWave (int index)

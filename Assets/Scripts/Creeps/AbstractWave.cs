@@ -65,7 +65,7 @@ public class AbstractWave : MonoBehaviour
 		iterationNumber++;
 		waveIteration = Instantiate (this, Vector3.zero, Quaternion.identity) as AbstractWave;
         waveIteration.transform.parent = instantiatedWavesParentObject.transform;
-		waveIteration.name = "[" + (this.transform.parent.transform.GetChild (0).childCount - 1) + "]  " + this.gameObject.name + "\t(Iteration " + iterationNumber + ")";
+        waveIteration.name = "[" + (instantiatedWavesParentObject.transform.childCount - 1) + "]  " + this.gameObject.name + "\t(Iteration " + iterationNumber + ")";
 
 		return waveIteration;
 	}

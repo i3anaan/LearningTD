@@ -45,7 +45,7 @@ MonoBehaviour:
   - {fileID: 11400000, guid: b54d78a6fa15a5b418a37ba4113fe7d0, type: 2}
   - {fileID: 11400000, guid: cc029dd48e5c5ea41ab7665997396aa8, type: 2}
   - {fileID: 11400000, guid: 7357f5dacaae0a54d9b2aeecb3ba7923, type: 2}
-  amountPerType: 010000000a00000032000000
+  amountPerType: 010000000800000032000000
   difficulty: 1
   creepStupidity: 0
   board: {fileID: 0}

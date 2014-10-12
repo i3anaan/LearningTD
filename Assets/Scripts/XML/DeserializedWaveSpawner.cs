@@ -3,6 +3,7 @@ using System.Xml;
 using System.Xml.Serialization;
 using System.IO;
 using UnityEngine;
+using System;
 using System.Globalization;
 
 [XmlRoot("WaveSpawner")]
@@ -17,7 +18,7 @@ public class DeserializedWaveSpawner
     [XmlElement("Endless")]
     public string endless;
     [XmlElement("Start_wave")]
-    public string wave;
+    public string startWave;
     [XmlElement("Difficulty")]
     public string difficulty;
     [XmlElement("Start_position")]
@@ -28,7 +29,10 @@ public class DeserializedWaveSpawner
     //[XmlElement("Target_position")]
     //public string[] waves;
 
+
+
     public DeserializedWave[] waves;
+    [XmlInclude(typeof(DeserializedNormalWave))]
     public class DeserializedWave
     {
         public string prefab;
@@ -38,11 +42,11 @@ public class DeserializedWaveSpawner
         public string[] amountPerType;
         public string difficulty;
         public string creepStupidity;
+    }
 
-        public string randomStuff;
-        public string randomStuff2;
-        public string randomStuff3;
-        public string randomStuff4;
+    public class DeserializedNormalWave : DeserializedWave
+    {
+        public string framesInBetween;
     }
 
     public class DeserializedCreep
@@ -84,9 +88,12 @@ public class DeserializedWaveSpawner
         else
         {
             SVector3 output = new SVector3();
-            output.x = toStringNullWhenEqual(baseVec.x, overwritingVec.x);
-            output.y = toStringNullWhenEqual(baseVec.y, overwritingVec.y);
-            output.z = toStringNullWhenEqual(baseVec.z, overwritingVec.z);
+            output.x = overwritingVec.x.ToString();
+            output.y = overwritingVec.y.ToString();
+            output.z = overwritingVec.z.ToString();
+            //output.x = toStringNullWhenEqual(baseVec.x, overwritingVec.x);
+            //output.y = toStringNullWhenEqual(baseVec.y, overwritingVec.y);
+            //output.z = toStringNullWhenEqual(baseVec.z, overwritingVec.z);
             return output;
         }
     }
