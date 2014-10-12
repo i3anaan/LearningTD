@@ -1,29 +1,8 @@
 <?xml version="1.0" encoding="Windows-1252"?>
-<WaveSpawner xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <Time_between_waves>100</Time_between_waves>
-  <Max_time_per_wave>-1</Max_time_per_wave>
-  <Endless>True</Endless>
-  <Start_wave>0</Start_wave>
-  <Difficulty>1</Difficulty>
-  <Start_position x="-1" y="-1" z="0" />
-  <waves>
-    <DeserializedWave xsi:type="DeserializedNormalWave">
-      <prefab>Boss wave</prefab>
-    </DeserializedWave>
-    <DeserializedWave xsi:type="DeserializedNormalWave">
-      <prefab>Normal wave</prefab>
-    </DeserializedWave>
-    <DeserializedWave xsi:type="DeserializedNormalWave">
-      <prefab>Mixed wave</prefab>
-      <amountPerType>
-        <string>100</string>
-        <string>11</string>
-        <string>50</string>
-      </amountPerType>
-      <difficulty>10</difficulty>
-    </DeserializedWave>
-    <DeserializedWave xsi:type="DeserializedNormalWave">
-      <prefab>Small wave</prefab>
-    </DeserializedWave>
-  </waves>
-</WaveSpawner>
+<Deserialised_WaveSpawner xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
+  <timeBetweenWaves>0</timeBetweenWaves>
+  <maxTimePerWave>0</maxTimePerWave>
+  <endless>false</endless>
+  <startWave>0</startWave>
+  <difficulty>0</difficulty>
+</Deserialised_WaveSpawner>

@@ -9,7 +9,7 @@ public static class XmlIO
     {
         using (var stream = new FileStream(path, FileMode.Create))
         {
-            var s = new XmlSerializer(typeof(T));
+            var s = new XmlSerializer(deserializedXml.GetType());
             s.Serialize(stream, deserializedXml);
         }
     }

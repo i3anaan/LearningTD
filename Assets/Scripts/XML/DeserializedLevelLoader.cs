@@ -13,7 +13,7 @@ public class DeserializedLevelLoader
         WaveSpawner existingWS = GameObject.FindObjectOfType<WaveSpawner>();
         DeserializedWaveSpawner dws = XmlIO.LoadXml<DeserializedWaveSpawner>("WaveSpawner");
 
-        existingWS.timeBetweenWaves = int.Parse(dws.timeBetweenWaves);
+        existingWS.timeBetweenWaves = dws.timeBetweenWaves;
         existingWS.maxTimePerWave = int.Parse(dws.maxTimePerWave);
         existingWS.endless = bool.Parse(dws.endless);
         existingWS.startWave = int.Parse(dws.startWave);
@@ -27,14 +27,15 @@ public class DeserializedLevelLoader
         for(int i=0;i<dws.waves.Length;i++)
         {
             DeserializedWaveSpawner.DeserializedWave wave = dws.waves[i];
-            AbstractWave lwave = Resources.Load(DeserializedLevelSaver.prefabsFolder + wave.prefab,typeof(AbstractWave)) as AbstractWave;
-            Debug.Log(lwave);
+            AbstractWave lwavePrefab = Resources.Load(DeserializedLevelSaver.prefabsFolder + wave.prefab,typeof(AbstractWave)) as AbstractWave;
+            AbstractWave lwaveInstance = GameObject.Instantiate(lwavePrefab, Vector3.zero, Quaternion.identity) as AbstractWave;
+            Debug.Log(lwaveInstance);
             Debug.Log(DeserializedLevelSaver.prefabsFolder + wave.prefab);
-            if (lwave.GetType() == typeof(NormalWave))
+            if (lwaveInstance.GetType() == typeof(NormalWave))
             {
                 if (((DeserializedWaveSpawner.DeserializedNormalWave)wave).framesInBetween != null)
                 {
-                    ((NormalWave)lwave).framesInBetween = int.Parse(((DeserializedWaveSpawner.DeserializedNormalWave)wave).framesInBetween);
+                    ((NormalWave)lwaveInstance).framesInBetween = int.Parse(((DeserializedWaveSpawner.DeserializedNormalWave)wave).framesInBetween);
                 }
             }
 
@@ -53,7 +54,7 @@ public class DeserializedLevelLoader
                 if (f.GetValue(wave) != null)
                 {
                     Debug.Log("Processing field: " + f.Name);
-                    FieldInfo fieldToUpdate = lwave.GetType().GetField(f.Name);
+                    FieldInfo fieldToUpdate = lwaveInstance.GetType().GetField(f.Name);
                     if (fieldToUpdate != null)
                     {
                         //Debug.Log("Value to parse: " + f.GetValue(wave));
@@ -73,12 +74,12 @@ public class DeserializedLevelLoader
                             //Debug.Log(f.GetValue(wave));
                             var loadedValue = parseMethod.Invoke(null, new object[2] { null, f.GetValue(wave) });
                             //Debug.Log("LoadedValue: "+loadedValue);
-                            fieldToUpdate.SetValue(lwave, loadedValue);
+                            fieldToUpdate.SetValue(lwaveInstance, loadedValue);
                         }
                         else
                         {
                             var loadedValue = parseMethod.Invoke(null, new object[1] { f.GetValue(wave) });
-                            fieldToUpdate.SetValue(lwave, loadedValue);
+                            fieldToUpdate.SetValue(lwaveInstance, loadedValue);
                         }
                         //Debug.Log("ParseMethod: "+parseMethod);
                         
@@ -88,8 +89,8 @@ public class DeserializedLevelLoader
                 }
             }
             GameObject.DestroyImmediate(existingWS.waves[i]);
-            existingWS.waves[i] = lwave;
-            lwave.transform.parent = existingWS.transform;
+            existingWS.waves[i] = lwaveInstance;
+            lwaveInstance.transform.parent = existingWS.transform;
         }
     }
 }

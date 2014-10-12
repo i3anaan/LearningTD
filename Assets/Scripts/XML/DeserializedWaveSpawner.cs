@@ -12,7 +12,7 @@ public class DeserializedWaveSpawner
     public static string xmlExportName = "WaveSpawner";
 
     [XmlElement("Time_between_waves")]
-    public string timeBetweenWaves;
+    public int timeBetweenWaves;
     [XmlElement("Max_time_per_wave")]
     public string maxTimePerWave;
     [XmlElement("Endless")]

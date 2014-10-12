@@ -2,6 +2,8 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Reflection;
+using System.Reflection.Emit;
 using UnityEngine;
 
 
@@ -12,8 +14,10 @@ public class DeserializedLevelSaver
 
     public static void saveWaveSpawner(WaveSpawner ws)
     {
+        
+        /*
         DeserializedWaveSpawner dws = new DeserializedWaveSpawner();
-        dws.timeBetweenWaves = ws.timeBetweenWaves.ToString();
+        dws.timeBetweenWaves = ws.timeBetweenWaves;
         dws.maxTimePerWave = ws.maxTimePerWave.ToString();
         dws.endless = ws.endless.ToString();
         dws.startWave = ws.startWave.ToString();
@@ -89,7 +93,116 @@ public class DeserializedLevelSaver
         }
 
         dws.waves = deserializedWaves;
+        */
+        
+        Type deserializedType = buildDeserializedTypeFor(ws);
+        System.Object instance = Activator.CreateInstance(deserializedType);
 
-        XmlIO.SaveXml<DeserializedWaveSpawner>(dws, "./Assets/Resources/" + DeserializedWaveSpawner.xmlExportName + ".xml");
+        //showTypeDebug(deserializedType);
+
+        XmlIO.SaveXml<System.Object>(instance, "./Assets/Resources/" + DeserializedWaveSpawner.xmlExportName + ".xml");
+   
+ }
+
+    public static void showTypeDebug(Type type)
+    {
+        foreach (FieldInfo f in type.GetFields())
+        {
+            Debug.Log("Field:  " + f);
+            if (f.FieldType.IsArray && !f.FieldType.GetElementType().IsPrimitive)
+            {
+                Debug.Log("Non primitive field type found");
+                showTypeDebug(f.FieldType.GetElementType());
+            }
+        }
+    }
+
+
+
+
+
+
+    public static Type buildDeserializedTypeFor(System.Object go)
+    {
+        AssemblyName aName = new AssemblyName("DeserializedXMLAssembly");
+        AssemblyBuilder ab =
+            AppDomain.CurrentDomain.DefineDynamicAssembly(
+                aName,
+                AssemblyBuilderAccess.RunAndSave);
+
+        // For a single-module assembly, the module name is usually 
+        // the assembly name plus an extension.
+        ModuleBuilder mb =
+            ab.DefineDynamicModule(aName.Name, aName.Name + ".dll");
+        Type createdType = createSubType(go.GetType(), mb);
+        ab.Save(aName.Name + ".dll");
+
+        return createdType;
+    }
+
+    public static void addFieldsOrSubclasses(Type type, ModuleBuilder mb, TypeBuilder tb)
+    {
+        foreach (FieldInfo f in type.GetFields())
+        {
+            //Debug.Log("Field found: " + f);
+            if (f.FieldType.IsPrimitive || f.FieldType == typeof(string))
+            {
+                FieldBuilder fb = tb.DefineField(
+                f.Name,
+                f.FieldType,
+                FieldAttributes.Public);
+            }
+            else if(f.FieldType.IsArray)
+            {
+                
+                //TODO arrays in arrays
+                if (f.FieldType.GetElementType().IsPrimitive || f.FieldType.GetElementType()==typeof(string))
+                {
+                    FieldBuilder fb = tb.DefineField(
+                    f.Name,
+                    f.FieldType,
+                    FieldAttributes.Public);
+                }
+                else
+                {
+                    Type createdType = createSubType(f.FieldType.GetElementType(), mb);
+                    FieldBuilder fb = tb.DefineField(
+                    f.Name,
+                    createdType.MakeArrayType(),
+                    FieldAttributes.Public);
+                    //DEBUG;
+                    fb.SetConstant(Activator.CreateInstance(createdType));
+                }
+            }
+            else
+            {
+                Type createdType = createSubType(f.FieldType, mb);
+                FieldBuilder fb = tb.DefineField(
+                f.Name,
+                createdType,
+                FieldAttributes.Public);
+                //DEBUG;
+                fb.SetConstant(Activator.CreateInstance(createdType));
+            }
+        }
+    }
+
+    public static Type createSubType(Type type, ModuleBuilder mb)
+    {
+        Debug.Log("Find type for: " + "Deserialised_" + type.Name + " Found: " + Type.GetType("Deserialised_" + type.Name));
+        //TODO bijhouden welke al wel en welke nog niet gemaakt zijn.
+        if (Type.GetType("Deserialised_" + type.Name) == null)
+        {
+            Debug.Log("CreateSubType for: " + type);
+            TypeBuilder tb = mb.DefineType(
+                "Deserialised_" + type.Name,
+                 TypeAttributes.Public);
+            addFieldsOrSubclasses(type, mb, tb);
+            return tb.CreateType();
+        }
+        else
+        {
+            return Type.GetType("Deserialised_" + type.Name);
+        }
     }
 }
