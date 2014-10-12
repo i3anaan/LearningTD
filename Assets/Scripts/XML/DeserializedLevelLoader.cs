@@ -87,8 +87,9 @@ public class DeserializedLevelLoader
                     }
                 }
             }
-
+            GameObject.DestroyImmediate(existingWS.waves[i]);
             existingWS.waves[i] = lwave;
+            lwave.transform.parent = existingWS.transform;
         }
     }
 }
