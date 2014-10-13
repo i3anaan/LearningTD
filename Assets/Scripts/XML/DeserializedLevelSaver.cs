@@ -11,7 +11,6 @@ public class DeserializedLevelSaver
 {
     public static string prefabsFolder = "Prefabs/Waves/";
 
-
     public static void saveWaveSpawner(WaveSpawner ws)
     {
         
@@ -97,6 +96,7 @@ public class DeserializedLevelSaver
         
         Type deserializedType = buildDeserializedTypeFor(ws);
         System.Object instance = Activator.CreateInstance(deserializedType);
+        saveToFields(ws, instance);
 
         //showTypeDebug(deserializedType);
 
@@ -134,75 +134,120 @@ public class DeserializedLevelSaver
         // the assembly name plus an extension.
         ModuleBuilder mb =
             ab.DefineDynamicModule(aName.Name, aName.Name + ".dll");
-        Type createdType = createSubType(go.GetType(), mb);
+        Type createdType = getSubTypeFullCascading(go, mb);
+        Debug.Log("Gotten dynamic type: " + createdType);
         ab.Save(aName.Name + ".dll");
 
         return createdType;
     }
 
-    public static void addFieldsOrSubclasses(Type type, ModuleBuilder mb, TypeBuilder tb)
+    public static void addFields(System.Object obj, TypeBuilder tb, ModuleBuilder mb)
     {
-        foreach (FieldInfo f in type.GetFields())
+        foreach (FieldInfo f in obj.GetType().GetFields())
         {
-            //Debug.Log("Field found: " + f);
-            if (f.FieldType.IsPrimitive || f.FieldType == typeof(string))
+            var valueToStore = f.GetValue(obj);
+            
+            if (valueToStore != null)
             {
-                FieldBuilder fb = tb.DefineField(
-                f.Name,
-                f.FieldType,
-                FieldAttributes.Public);
-            }
-            else if(f.FieldType.IsArray)
-            {
-                
-                //TODO arrays in arrays
-                if (f.FieldType.GetElementType().IsPrimitive || f.FieldType.GetElementType()==typeof(string))
+                if (f.FieldType.IsPrimitive || f.FieldType == typeof(string))
                 {
+                    Debug.Log("Create field: " + f);
                     FieldBuilder fb = tb.DefineField(
                     f.Name,
                     f.FieldType,
                     FieldAttributes.Public);
                 }
-                else
+                else if (!f.FieldType.IsArray) 
                 {
-                    Type createdType = createSubType(f.FieldType.GetElementType(), mb);
+                    //Non primitive Field > New dynamic class needs to be made.
+
+                    Type createdType = getSubTypeFullCascading(valueToStore, mb);
+                    Debug.Log("Gotten dynamic type: " + createdType);
+                    FieldBuilder fb = tb.DefineField(
+                    f.Name,
+                    createdType,
+                    FieldAttributes.Public);
+                }
+                else//Case = Array           - TODO arrays in arrays
+                {
+                    Type createdType = getSubType(f.FieldType.GetElementType(), mb);
+                    //This createdType has NO fields.
+                    //Later on whenever this type gets encountered new classes should be made that inherit from this empty base type.
                     FieldBuilder fb = tb.DefineField(
                     f.Name,
                     createdType.MakeArrayType(),
                     FieldAttributes.Public);
-                    //DEBUG;
-                    fb.SetConstant(Activator.CreateInstance(createdType));
                 }
-            }
-            else
-            {
-                Type createdType = createSubType(f.FieldType, mb);
-                FieldBuilder fb = tb.DefineField(
-                f.Name,
-                createdType,
-                FieldAttributes.Public);
-                //DEBUG;
-                fb.SetConstant(Activator.CreateInstance(createdType));
             }
         }
     }
 
-    public static Type createSubType(Type type, ModuleBuilder mb)
+    public static void saveToFields(System.Object originalObj, System.Object serializableObj)
     {
-        Debug.Log("Find type for: " + "Deserialised_" + type.Name + " Found: " + Type.GetType("Deserialised_" + type.Name));
-        //TODO bijhouden welke al wel en welke nog niet gemaakt zijn.
-        if (Type.GetType("Deserialised_" + type.Name) == null)
+        foreach (FieldInfo f in originalObj.GetType().GetFields())
         {
-            Debug.Log("CreateSubType for: " + type);
+            var valueToStore = f.GetValue(originalObj);
+            Debug.Log("Value to store in " + f + " is: " + valueToStore);
+            if (valueToStore != null)
+            {
+                if ((f.FieldType.IsPrimitive || f.FieldType == typeof(string)))
+                {
+                    serializableObj.GetType().GetField(f.Name).SetValue(serializableObj, valueToStore);
+                }
+                else if (!f.FieldType.IsArray)
+                {
+                    Debug.Log("Field to store = " + f.Name);
+                    Debug.Log("Creating new instance of: " + serializableObj.GetType().GetField(f.Name).FieldType);
+                    var newNonPrimitiveSerializableToStore = Activator.CreateInstance(serializableObj.GetType().GetField(f.Name).FieldType);
+                    saveToFields(f.GetValue(originalObj), newNonPrimitiveSerializableToStore);
+                    serializableObj.GetType().GetField(f.Name).SetValue(serializableObj, newNonPrimitiveSerializableToStore);
+                }
+                else
+                {
+                    Debug.Log("TODO: arrays, see code");
+                    //When it finds an array, it needs to go through all the actual instances in that array, make new classes for them, and let them extend the (empty) base type the serializableObj has in its field.
+                    //After that, need to figure out a way to know which class it is when loading.
+                    //And need to compare to prefab, to massively reduce the size of the xml file (and improve readability)
+                }
+            }
+        }
+    }
+
+    public static Type getSubTypeFullCascading(System.Object obj, ModuleBuilder mb)
+    {
+        Type type = mb.GetType("Deserialised_" + obj.GetType().Name); 
+        if (type == null)
+        {
+            Debug.Log("CreateSubTypeFullCascading for: " + obj.GetType().Name);
             TypeBuilder tb = mb.DefineType(
-                "Deserialised_" + type.Name,
+                "Deserialised_" + obj.GetType().Name,
                  TypeAttributes.Public);
-            addFieldsOrSubclasses(type, mb, tb);
+            addFields(obj, tb,mb);
             return tb.CreateType();
         }
         else
         {
-            return Type.GetType("Deserialised_" + type.Name);
+            return type;
         }
     }
+
+    //This will, in contrast to FullCascading, not add fields to the dynamicly made type.
+    public static Type getSubType(Type type, ModuleBuilder mb)
+    {
+        Type foundType = mb.GetType("Deserialised_" + type.Name);
+        if (foundType == null)
+        {
+            Debug.Log("CreateSubType for: " + type.Name);
+            TypeBuilder tb = mb.DefineType(
+                "Deserialised_" + type.Name,
+                 TypeAttributes.Public);
+            return tb.CreateType();
+        }
+        else
+        {
+            return foundType;
+        }
+    }
+
+
 }

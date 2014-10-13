@@ -1,8 +1,20 @@
 <?xml version="1.0" encoding="Windows-1252"?>
 <Deserialised_WaveSpawner xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema">
-  <timeBetweenWaves>0</timeBetweenWaves>
-  <maxTimePerWave>0</maxTimePerWave>
-  <endless>false</endless>
+  <timeBetweenWaves>100</timeBetweenWaves>
+  <maxTimePerWave>-1</maxTimePerWave>
+  <endless>true</endless>
   <startWave>0</startWave>
-  <difficulty>0</difficulty>
+  <difficulty>1</difficulty>
+  <startPosition>
+    <kEpsilon>1E-05</kEpsilon>
+    <x>-1</x>
+    <y>-1</y>
+    <z>0</z>
+  </startPosition>
+  <targetPosition>
+    <kEpsilon>1E-05</kEpsilon>
+    <x>0</x>
+    <y>0</y>
+    <z>0</z>
+  </targetPosition>
 </Deserialised_WaveSpawner>
