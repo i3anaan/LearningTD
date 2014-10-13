@@ -373,7 +373,7 @@ MonoBehaviour:
   timeBetweenWaves: 100
   maxTimePerWave: -1
   endless: 1
-  wave: 0
+  startWave: 0
   difficulty: 1
   startPosition: {x: -1, y: -1, z: 0}
   targetPosition: {x: 0, y: 0, z: 0}

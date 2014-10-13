@@ -204,7 +204,7 @@ public class DeserializedLevelSaver
                 }
                 else
                 {
-                    Debug.Log("TODO: arrays, see code");
+                    Debug.LogError("TODO: arrays, see code");
                     //When it finds an array, it needs to go through all the actual instances in that array, make new classes for them, and let them extend the (empty) base type the serializableObj has in its field.
                     //After that, need to figure out a way to know which class it is when loading.
                     //And need to compare to prefab, to massively reduce the size of the xml file (and improve readability)
