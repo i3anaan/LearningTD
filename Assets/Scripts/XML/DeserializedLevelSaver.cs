@@ -197,7 +197,7 @@ public class DeserializedLevelSaver
                 else if (!f.FieldType.IsArray)
                 {
                     Debug.Log("Field to store = " + f.Name);
-                    Debug.Log("Creating new instance of: " + serializableObj.GetType().GetField(f.Name).FieldType);
+                    Debug.Log("Creating new instance of: " + serializableObj.GetType().GetField(f.Name).FieldType.FullName);
                     var newNonPrimitiveSerializableToStore = Activator.CreateInstance(serializableObj.GetType().GetField(f.Name).FieldType);
                     saveToFields(f.GetValue(originalObj), newNonPrimitiveSerializableToStore);
                     serializableObj.GetType().GetField(f.Name).SetValue(serializableObj, newNonPrimitiveSerializableToStore);
@@ -215,12 +215,12 @@ public class DeserializedLevelSaver
 
     public static Type getSubTypeFullCascading(System.Object obj, ModuleBuilder mb)
     {
-        Type type = mb.GetType("Deserialised_" + obj.GetType().Name); 
+        Type type = mb.GetType("Deserialised_" + obj.GetType().FullName); 
         if (type == null)
         {
             Debug.Log("CreateSubTypeFullCascading for: " + obj.GetType().Name);
             TypeBuilder tb = mb.DefineType(
-                "Deserialised_" + obj.GetType().Name,
+                "Deserialised_" + obj.GetType().FullName,
                  TypeAttributes.Public);
             addFields(obj, tb,mb);
             return tb.CreateType();
